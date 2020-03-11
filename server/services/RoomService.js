@@ -3,7 +3,7 @@ import { BadRequest } from "../utils/Errors";
 
 class RoomService {
   async getRoomById(id) {
-    let data = await dbContext.Rooms.findOne({ _id: id })
+    let data = await dbContext.Rooms.findById(id)
     if (!data) {
       throw new BadRequest("Invalid ID")
     }
@@ -15,13 +15,14 @@ class RoomService {
     return data
   }
   async editRoom(id, update) {
-    let creator = await dbContext.Rooms.players.findById(id)
-    if (creator.creator) {
-      let data = await dbContext.Rooms.findOneAndUpdate({ _id: id }, update, { new: true })
-      if (!data) {
-        throw new BadRequest("Invalid ID")
-      }
+    // let creator = await dbContext.Rooms.players.findById(id)
+    //if (creator.creator) {
+    let data = await dbContext.Rooms.findOneAndUpdate({ _id: id }, update, { new: true })
+    if (!data) {
+      throw new BadRequest("Invalid ID")
     }
+    return data;
+    // }
   }
   async deleteRoom(id) {
     let data = await dbContext.Rooms.findOneAndRemove({ _id: id })
