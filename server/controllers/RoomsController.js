@@ -1,6 +1,6 @@
 import express from "express";
 import BaseController from "../utils/BaseController";
-import { RoomService } from "../services/RoomService";
+import { roomService } from "../services/RoomService";
 
 export class RoomsController extends BaseController {
   constructor() {
