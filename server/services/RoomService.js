@@ -2,6 +2,7 @@ import { dbContext } from "../db/DbContext";
 import { BadRequest } from "../utils/Errors";
 
 class RoomService {
+
   async getRoomById(id) {
     let data = await dbContext.Rooms.findById(id)
     if (!data) {
@@ -29,6 +30,68 @@ class RoomService {
     if (!data) {
       throw new BadRequest("Invalid ID")
     }
+  }
+  async createPlayer(id, body) {
+    return await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $addToSet: { players: body } }, { new: true })
+  }
+  async createDare(id, body) {
+    return await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $addToSet: { dares: body } }, { new: true })
+  }
+  async editPlayerScore(id, playerId, update) {
+    let data = await dbContext.Rooms.findOne({ _id: id })
+    // @ts-ignore
+    data.players.forEach(p => {
+      if (playerId == p._id) {
+        p.playerScore = update.playerScore
+      }
+    });
+    return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
+  }
+  async deletePlayer(id, playerId, update) {
+    return await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $pull: { players: { _id: playerId } } }, { new: true })
+
+  }
+
+  editPlayer(id, playerId, update) {
+    if (update.playerScore) {
+      this.editPlayerScore(id, playerId, update)
+    } else if (!update.playerScore) {
+      this.deletePlayer(id, playerId, update)
+    }
+
+  }
+  // @ts-ignore
+  async editEligible(id, update) {//NOTE always call after editActive
+    let data = await dbContext.Rooms.findOne({ _id: id })
+    // @ts-ignore
+    if (data.eligiblePlayers.length == 0) {
+      // @ts-ignore
+      data.eligiblePlayers = data.players;
+    } else {
+      // @ts-ignore
+      data.eligiblePlayers.filter(p => {
+        // @ts-ignore
+        p.id == data.activePlayer[0].id;
+      })
+    }
+    return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
+  }
+  // @ts-ignore
+  async editActive(id, update) {
+    let data = await dbContext.Rooms.findOne({ _id: id })
+    // @ts-ignore
+    data.activePlayer[0] = data.eligiblePlayers[Math.floor(Math.random() * (data.eligiblePlayers.length))]
+    //NOTE Will have to edit eligible after this call, otherwise active player will not be accurate (activeplayer will be outdated)
+    // @ts-ignore
+    data.activeDare[0] = data.dares[Math.floor(Math.random() * (data.dares.length))]
+    // @ts-ignore
+    data.dares.filter(d => {
+      //FIXME this is still not filtering the dares array to remove the active dare from it
+      let x = data.activeDare[0].id
+      // @ts-ignore
+      d.id != x;
+    })
+    return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
   }
 }
 

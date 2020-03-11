@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import { array } from "mongoose/lib/utils"
 let Schema = mongoose.Schema
 let ObjectId = Schema.Types.ObjectId
 
@@ -9,10 +10,11 @@ const SubDare = new Schema({
 
 const SubPlayer = new Schema({
   playerName: { type: String, required: true },
-  playerScore: { type: Number, required: true },
-  creator: { type: Boolean, required: true, default: false },
+  playerScore: { type: Number, required: true, default: 0 },
+  creator: { type: Boolean, required: true },
   imgUrl: { type: String, required: false }
 }, { timestamps: true, toJSON: { virtuals: true } })
+
 
 
 const Room = new Schema({
@@ -21,6 +23,9 @@ const Room = new Schema({
   roomCode: { type: Number, required: true },
   dares: [SubDare],
   players: [SubPlayer],
+  eligiblePlayers: [SubPlayer],
+  activePlayer: [],
+  activeDare: []
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 
