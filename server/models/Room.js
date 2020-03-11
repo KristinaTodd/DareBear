@@ -16,8 +16,8 @@ const SubPlayer = new Schema({
 
 
 const Room = new Schema({
-  title: { type: String, required: true },
-  roundTotal: { type: Number, required: true },
+  title: { type: String, required: false },
+  roundTotal: { type: Number, default: 1 },
   roomCode: { type: Number, required: true },
   dares: [SubDare],
   players: [SubPlayer],
