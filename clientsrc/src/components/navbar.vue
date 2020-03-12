@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-2">
         <router-link class="navbar-brand" :to="{ name: 'home' }">
-          <img src="../assets/bearfinal.png" class="imgSize" />
+          <img src="../assets/bearfinal3.png" class="imgSize" />
         </router-link>
       </div>
       <div class="col-1"></div>
@@ -17,21 +17,23 @@
 </template>
 
 <script>
-export default {
-  name: "Navbar"
-};
+  export default {
+    name: "Navbar"
+  };
 </script>
 
 <style scoped>
-.navbar-color {
-  background: (#01012b);
-}
-.imgSize {
-  height: 3rem;
-  width: 3rem;
-}
-.logoSize {
-  height: 3rem;
-  width: auto;
-}
+  .navbar-color {
+    background: (#01012b);
+  }
+
+  .imgSize {
+    height: 3rem;
+    width: 3rem;
+  }
+
+  .logoSize {
+    height: 3rem;
+    width: auto;
+  }
 </style>
