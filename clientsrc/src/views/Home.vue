@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import Navbar from "../components/Navbar";
+import Navbar from "../components/navbar";
 export default {
   name: "Home",
   components: {
