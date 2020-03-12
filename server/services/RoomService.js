@@ -85,12 +85,8 @@ class RoomService {
     // @ts-ignore
     data.activeDare[0] = data.dares[Math.floor(Math.random() * (data.dares.length))]
     // @ts-ignore
-    data.dares.filter(d => {
-      //FIXME this is still not filtering the dares array to remove the active dare from it
-      let x = data.activeDare[0].id
-      // @ts-ignore
-      d.id != x;
-    })
+    let index = data.dares.findIndex(d => d.id == data.activeDare[0]._id)
+    data.dares.splice(index, 1)
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
   }
 }
