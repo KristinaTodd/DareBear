@@ -43,34 +43,33 @@
 </template>
 
 <script>
-  import Navbar from "../components/navbar";
-  export default {
-    name: "Home",
-    components: {
-      Navbar
-    }
-  };
+import Navbar from "../components/navbar";
+export default {
+  name: "Home",
+  components: {
+    Navbar
+  }
+};
 </script>
 
 <style>
-  .info-border {
-    border: 5px;
-    border-style: solid;
-    border-color: #ff2a6d;
+.info-border {
+  border: 5px;
+  border-style: solid;
+  border-color: #ff2a6d;
+}
 
-  }
+.button-border {
+  border: 3px;
+  border-style: solid;
+  border-color: #05d9e8;
+}
 
-  .button-border {
-    border: 3px;
-    border-style: solid;
-    border-color: #05d9e8;
-  }
+.button-font {
+  font-size: 2rem;
+}
 
-  .button-font {
-    font-size: 2rem;
-  }
-
-  .main-font {
-    font-family: "Gugi", cursive;
-  }
+.main-font {
+  font-family: "Gugi", cursive;
+}
 </style>
