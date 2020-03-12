@@ -1,6 +1,7 @@
 import express from "express";
 import BaseController from "../utils/BaseController";
 import { roomService } from "../services/RoomService";
+import socketService from "../services/SocketService"
 
 export class RoomsController extends BaseController {
   constructor() {
@@ -21,6 +22,7 @@ export class RoomsController extends BaseController {
   async getRoomById(req, res, next) {
     try {
       let data = await roomService.getRoomById(req.params.id)
+      socketService.messageRoom("rooms", "newRoom", data)
       return res.send(data)
     } catch (error) {
       next(error)

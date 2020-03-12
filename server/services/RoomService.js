@@ -8,6 +8,7 @@ class RoomService {
     if (!data) {
       throw new BadRequest("Invalid ID")
     }
+
     return data
   }
 
