@@ -4,5 +4,7 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
+  @import "./assets/_variables.scss";
+  @import "bootstrap";
 </style>
