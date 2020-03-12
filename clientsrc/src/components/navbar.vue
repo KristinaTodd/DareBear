@@ -1,15 +1,18 @@
 <template>
   <nav class="navbar navbar-expand-md navbar-light text-black navbar-color">
-    <router-link class="navbar-brand" :to="{ name: 'home' }">
-      <div class="d-flex justify-content-between">
-        <div>
+    <div class="row">
+      <div class="col-2">
+        <router-link class="navbar-brand" :to="{ name: 'home' }">
           <img src="../assets/bearfinal.png" class="imgSize" />
-        </div>
-        <div class="ml-auto">
-          <img src="../assets/DareBearLogo.png" class="logoSize" />
-        </div>
+        </router-link>
       </div>
-    </router-link>
+      <div class="col-1"></div>
+      <div class="col-4">
+        <router-link class="navbar-brand" :to="{ name: 'home' }">
+          <img src="../assets/DareBearLogo.png" class="logoSize" />
+        </router-link>
+      </div>
+    </div>
   </nav>
 </template>
 
@@ -21,13 +24,14 @@ export default {
 
 <style scoped>
 .navbar-color {
-  background: linear-gradient(0.25turn, #d1f7ff, #05d9e8, #01012b);
+  background: (#01012b);
 }
 .imgSize {
   height: 3rem;
   width: 3rem;
 }
 .logoSize {
-  width: 10rem;
+  height: 3rem;
+  width: auto;
 }
 </style>
