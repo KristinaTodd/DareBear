@@ -1,4 +1,5 @@
 <template>
+
   <div class="container-fluid bg-primary main-font">
     <navbar />
     <div class="row m-2">
@@ -40,11 +41,13 @@
 </template>
 
 <script>
-  export default {
-    name: 'Home',
-    components: {
-    }
+import Navbar from "../components/Navbar";
+export default {
+  name: "Home",
+  components: {
+    Navbar
   }
+
 </script>
 
 <style>
