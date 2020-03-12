@@ -1,13 +1,15 @@
 <template>
   <div class="container-fluid">
-    </navbar>
+    <navbar />
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'Home',
-    components: {
-    }
+import Navbar from "../components/Navbar";
+export default {
+  name: "Home",
+  components: {
+    Navbar
   }
+};
 </script>
