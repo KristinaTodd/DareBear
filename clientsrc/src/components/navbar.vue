@@ -2,8 +2,12 @@
   <nav class="navbar navbar-expand-md navbar-light text-black navbar-color">
     <router-link class="navbar-brand" :to="{ name: 'home' }">
       <div class="d-flex justify-content-between">
-        <img src="../assets/bearfinal.png" class="imgSize" />
-        <img src="../assets/DareBearLogo.png" class="logoSize" />
+        <div>
+          <img src="../assets/bearfinal.png" class="imgSize" />
+        </div>
+        <div class="ml-auto">
+          <img src="../assets/DareBearLogo.png" class="logoSize" />
+        </div>
       </div>
     </router-link>
   </nav>
