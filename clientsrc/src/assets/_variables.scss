@@ -1,0 +1,41 @@
+$body-bg: #f3f3f0;
+
+$primary: #007BFF;
+$secondary: #6c757d;
+$danger: rgb(139, 22, 22);
+$success: rgb(12, 77, 27);
+$warning: #FFC107;
+$info: rgb(126, 133, 134);
+$light: rgba(253, 253, 251);
+$dark: #343A40;
+$white: #FFFFFF;
+
+$blue: blue;
+$indigo: indigo;
+$purple: purple;
+$pink: pink;
+$red: red;
+$orange: orange;
+$yellow: yellow;
+$green: green;
+$teal: teal;
+$cyan: cyan;
+$white: white;
+$gray: gray;
+$gray-dark: darkslategray;
+
+$colors: (
+"blue": $blue,
+"indigo": $indigo,
+"purple": $purple,
+"pink": $pink,
+"red": $red,
+"orange": $orange,
+"yellow": $yellow,
+"green": $green,
+"teal": $teal,
+"cyan": $cyan,
+"white": $white,
+"gray": $gray,
+"gray-dark": $gray-dark
+) !default;
