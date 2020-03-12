@@ -17,7 +17,6 @@ export default {
 
 <style scoped>
 .navbar-color {
-  /* background: linear-gradient(#01012b, #d1f7ff); */
   background: linear-gradient(0.25turn, #d1f7ff, #05d9e8, #01012b);
 }
 .imgSize {
@@ -25,7 +24,6 @@ export default {
   width: 3rem;
 }
 .logoSize {
-  /* height: 2rem; */
   width: 10rem;
 }
 </style>
