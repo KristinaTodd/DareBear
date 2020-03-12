@@ -1,12 +1,15 @@
 $body-bg: #f3f3f0;
 
-$primary: #007BFF;
-$secondary: #6c757d;
-$danger: rgb(139, 22, 22);
+//these are our colors
+$primary: #01012b;
+$secondary: #005678;
+$info: #05d9e8;
+$light: #d1f7ff;
+$danger: #ff2a6d;
+
+//these are not our colors
 $success: rgb(12, 77, 27);
 $warning: #FFC107;
-$info: rgb(126, 133, 134);
-$light: rgba(253, 253, 251);
 $dark: #343A40;
 $white: #FFFFFF;
 
@@ -18,7 +21,7 @@ $red: red;
 $orange: orange;
 $yellow: yellow;
 $green: green;
-$teal: teal;
+$teal: #008080;
 $cyan: cyan;
 $white: white;
 $gray: gray;
