@@ -87,6 +87,7 @@ class RoomService {
     data.activeDare[0] = data.dares[Math.floor(Math.random() * (data.dares.length))]
     // @ts-ignore
     let index = data.dares.findIndex(d => d.id == data.activeDare[0]._id)
+    // @ts-ignore
     data.dares.splice(index, 1)
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
   }
