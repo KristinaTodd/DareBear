@@ -4,7 +4,7 @@ let Schema = mongoose.Schema
 let ObjectId = Schema.Types.ObjectId
 
 const SubDare = new Schema({
-  title: { type: String, required: true },
+  dare: { type: String, required: true },
   playerId: { type: ObjectId, ref: 'Room.players', required: true },
 }, { timestamps: true, toJSON: { virtuals: true } })
 
@@ -18,8 +18,8 @@ const SubPlayer = new Schema({
 
 
 const Room = new Schema({
-  title: { type: String, required: false },
-  roundTotal: { type: Number, default: 1 },
+  roomName: { type: String, required: false },
+  roundTotal: { type: Number },
   roomCode: { type: Number, required: true },
   dares: [SubDare],
   players: [SubPlayer],
