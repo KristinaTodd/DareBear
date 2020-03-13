@@ -79,7 +79,8 @@
         },
         player: {
           playerName: "",
-          creator: true
+          creator: true,
+          imgURL: `../assets/userbear${Math.floor(Math.random() * 12)}.png`
         }
       };
     },
