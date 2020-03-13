@@ -10,12 +10,8 @@
       <div class="col-1"></div>
       <div class="col-10 text-info">
         <form>
-          <input
-            type="text"
-            class="bg-transparent info-border text-info input-font"
-            placeholder="name..."
-            v-model="room.playerName"
-          />
+          <input type="text" class="bg-transparent info-border text-info input-font" placeholder="name..."
+            v-model="player.playerName" required />
         </form>
       </div>
       <div class="col-1"></div>
@@ -30,11 +26,8 @@
       <div class="col-6 text-center">
         <form>
           <div class="form-group">
-            <select
-              v-model="room.rounds"
-              class="form-control text-info bg-transparent info-border"
-              placeholder="Choose"
-            >
+            <select v-model="newRoom.roundTotal" class="form-control text-info bg-transparent info-border"
+              placeholder="Choose" required>
               <option class="bg-primary">1</option>
               <option class="bg-primary">2</option>
               <option class="bg-primary">3</option>
@@ -55,59 +48,82 @@
       <div class="col-1"></div>
       <div class="col-10 text-info">
         <form class>
-          <input
-            type="text"
-            class="bg-transparent info-border text-info input-font"
-            placeholder="name..."
-            v-model="room.roomName"
-          />
+          <input type="text" class="bg-transparent info-border text-info input-font" placeholder="name..."
+            v-model="newRoom.roomName" required />
         </form>
       </div>
+      <div class="col-1"></div>
+    </div>
+    <div class="row text-center pt-5">
+      <div class="col-1"></div>
+      <div class="col-10 button-border text-danger text-center button-font" @click="createRoom">Create Room!</div>
       <div class="col-1"></div>
     </div>
   </div>
 </template>
 
 <script>
-import Navbar from "../components/navbar";
-export default {
-  name: "createroom",
-  components: {
-    Navbar
-  },
-  data() {
-    return {
-      room: {}
-    };
-  },
-  methods: {}
-};
+  import Navbar from "../components/navbar";
+  export default {
+    name: "createroom",
+    components: {
+      Navbar
+    },
+    data() {
+      return {
+        newRoom: {
+          roomCode: "",
+          roundTotal: "",
+          roomName: "",
+          players: []
+        },
+        player: {
+          playerName: "",
+          creator: true
+        }
+      };
+    },
+    methods: {
+      createRoom() {
+        this.newRoom.roomCode = Math.floor(Math.random() * 10000)
+        this.newRoom.players.push(this.player)
+        this.$store.dispatch("createRoom", this.newRoom)
+        this.$router.push({ name: "StartGame", params: { roomCode: this.newRoom.roomCode } });
+      }
+    }
+  };
 </script>
 <style scoped>
-.main-font {
-  font-family: "Gugi", cursive;
-}
-.info-border {
-  border: 3px;
-  border-style: solid;
-  border-color: #ff2a6d;
-}
-::placeholder {
-  color: #d1f7ff;
-  opacity: 1;
-}
-.button-font {
-  font-size: 2rem;
-}
-.input-font {
-  font-size: 1.5rem;
-}
-.button-border {
-  border: 3px;
-  border-style: solid;
-  border-color: #05d9e8;
-}
-select {
-  width: 10rem;
-}
+  .main-font {
+    font-family: "Gugi", cursive;
+  }
+
+  .info-border {
+    border: 3px;
+    border-style: solid;
+    border-color: #ff2a6d;
+  }
+
+  ::placeholder {
+    color: #d1f7ff;
+    opacity: 1;
+  }
+
+  .button-font {
+    font-size: 2rem;
+  }
+
+  .input-font {
+    font-size: 1.5rem;
+  }
+
+  .button-border {
+    border: 3px;
+    border-style: solid;
+    border-color: #05d9e8;
+  }
+
+  select {
+    width: 10rem;
+  }
 </style>
