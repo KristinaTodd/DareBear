@@ -2,13 +2,19 @@ import { dbContext } from "../db/DbContext";
 import { BadRequest } from "../utils/Errors";
 
 class RoomService {
+  async getRoomByRoomCode(params) {
+    let data = await dbContext.Rooms.find({ roomCode: params.roomCode })
+    if (!data) {
+      throw new BadRequest("Invalid roomCode")
+    }
+    return data
+  }
 
   async getRoomById(id) {
     let data = await dbContext.Rooms.findById(id)
     if (!data) {
       throw new BadRequest("Invalid ID")
     }
-
     return data
   }
 

@@ -8,6 +8,7 @@ export class RoomsController extends BaseController {
     super("api/room");
     this.router = express
       .Router()
+      .get("/:roomCode", this.getRoomByRoomCode)
       .get("/:id", this.getRoomById) //good
       .post("", this.createRoom) //good
       .put("/:id", this.editRoom)//good
@@ -18,6 +19,14 @@ export class RoomsController extends BaseController {
       .put("/:id/eligiblePlayers", this.editEligible)
       .put("/:id/active", this.editActive)
       .post("/:id/dares", this.createDare) //good
+  }
+  async getRoomByRoomCode(req, res, next) {
+    try {
+      let data = await roomService.getRoomByRoomCode(req.params)
+      return res.send(data)
+    } catch (error) {
+      next(error)
+    }
   }
   async getRoomById(req, res, next) {
     try {
