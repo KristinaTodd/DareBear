@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import JoinRoom from '../views/JoinRoom.vue'
 import CreateRoom from '../views/CreateRoom.vue'
 import StartGame from '../views/StartGame.vue'
+import WaitingForPlayers from "../views/WaitingForPlayers.vue"
 
 
 Vue.use(VueRouter)
@@ -15,16 +16,19 @@ const routes = [
     component: Home
   },
   {
-
     path: '/joinroom',
     name: 'JoinRoom',
     component: JoinRoom
   },
   {
-
     path: '/createroom',
     name: 'CreateRoom',
     component: CreateRoom
+  },
+  {
+    path: '/waitingforplayers',
+    name: 'WaitingForPlayers',
+    component: WaitingForPlayers
   },
   {
     path: '/startgame',

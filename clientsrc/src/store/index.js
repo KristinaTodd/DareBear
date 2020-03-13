@@ -8,7 +8,7 @@ let base = window.location.host.includes('localhost') ? '//localhost:3000/' : '/
 
 let api = axios.create({
   baseURL: base + "api/",
-  timeout: 3000
+  timeout: 300000
   // withCredentials: true
 })
 export default new Vuex.Store({
@@ -21,18 +21,19 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async getRoom({ commit, dispatch }, roomCode) {
+    async getRoom({ commit, dispatch, state }, roomCode) {
       try {
         let res = await api.get("room/" + roomCode)
+        console.log("res.data = ", res.data)
         commit("setRoom", res.data)
+        console.log("state:", state)
       } catch (error) {
         console.error(error)
       }
     },
-    async addPlayer({ commit, dispatch }, payload) {
+    async addPlayer({ commit, dispatch, state }, payload) {
       try {
-        dispatch("getRoom", payload.roomCode)
-        let res = await api.post("room/" + this.state.room.id, payload)
+        let res = await api.post("room/" + state.room.id + "/players", payload)
         dispatch("getRoom", payload.roomCode)
       } catch (error) {
         console.error(error)

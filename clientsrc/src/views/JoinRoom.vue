@@ -30,10 +30,10 @@
       <div class="col-10 text-info">
         <form class>
           <input
-            type="text"
+            type="number"
             class="bg-transparent info-border text-info input-font"
             placeholder="Code..."
-            v-model="newPlayer.roomCode"
+            v-model="newRoom.roomCode"
           />
         </form>
       </div>
@@ -57,19 +57,28 @@ export default {
   data() {
     return {
       newPlayer: {
+        creator: false,
         imgUrl: `../assets/userbear${Math.floor(Math.random() * 12)}.png`
+      },
+      newRoom: {
+        players: []
       }
     };
   },
+  computed: {
+    players() {
+      return this.$store.state.room.players;
+    }
+  },
   methods: {
-    addPlayer() {
-      let payload = {
-        playerName: this.newPlayer.playerName,
-        roomCode: this.newPlayer.roomCode,
-        imgUrl: this.newPlayer.imgUrl
-      };
+    async addPlayer() {
+      let payload = this.newRoom;
+      await this.$store.dispatch("getRoom", payload.roomCode);
+      payload.players = this.players;
+      payload.players.push(this.newPlayer);
+      /*[...this.$store.state.room.players, this.newPlayer]*/
       this.$store.dispatch("addPlayer", payload);
-      this.$router.push({});
+      this.$router.push({ name: "WaitingForPlayers" });
     }
   }
 };
