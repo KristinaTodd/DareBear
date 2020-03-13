@@ -25,7 +25,10 @@ const Room = new Schema({
   players: [SubPlayer],
   eligiblePlayers: [SubPlayer],
   activePlayer: [],
-  activeDare: []
+  activeDare: [],
+  scored: [],
+  dareComplete: { type: Boolean, required: true, default: false },
+  started: { type: Boolean, required: true, default: false }
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 
