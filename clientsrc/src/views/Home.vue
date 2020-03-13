@@ -20,14 +20,14 @@
     </div>
     <div class="row m-2 text-danger button-font mt-4">
       <div class="col-1"></div>
-      <div class="col-10 d-flex justify-content-center button-border">
+      <div class="col-10 d-flex justify-content-center button-border" @click="joinRoom">
         <div>Join A Room</div>
       </div>
       <div class="col-1"></div>
     </div>
     <div class="row m-2 text-danger button-font mt-4">
       <div class="col-1"></div>
-      <div class="col-10 d-flex justify-content-center button-border">
+      <div class="col-10 d-flex justify-content-center button-border" @click="createRoom">
         <div>Create A Room</div>
       </div>
       <div class="col-1"></div>
@@ -48,6 +48,14 @@ export default {
   name: "Home",
   components: {
     Navbar
+  },
+  methods: {
+    joinRoom() {
+      this.$router.push({ name: "JoinRoom" });
+    },
+    createRoom() {
+      this.$router.push({ name: "CreateRoom" });
+    }
   }
 };
 </script>

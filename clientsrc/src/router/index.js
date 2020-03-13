@@ -1,9 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-
 import JoinRoom from '../views/JoinRoom.vue'
-
 import CreateRoom from '../views/CreateRoom.vue'
 import StartGame from '../views/StartGame.vue'
 

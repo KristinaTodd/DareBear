@@ -69,6 +69,7 @@ export default {
         imgUrl: this.newPlayer.imgUrl
       };
       this.$store.dispatch("addPlayer", payload);
+      this.$router.push({});
     }
   }
 };
