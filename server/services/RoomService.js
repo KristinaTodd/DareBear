@@ -3,7 +3,7 @@ import { BadRequest } from "../utils/Errors";
 
 class RoomService {
   async getRoomByRoomCode(params) {
-    let data = await dbContext.Rooms.find({ roomCode: params.roomCode })
+    let data = await dbContext.Rooms.findOne({ roomCode: params.roomCode })
     if (!data) {
       throw new BadRequest("Invalid roomCode")
     }
