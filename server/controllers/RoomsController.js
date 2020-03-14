@@ -9,7 +9,7 @@ export class RoomsController extends BaseController {
     this.router = express
       .Router()
       .get("/:roomCode", this.getRoomByRoomCode)
-      .get("/:id", this.getRoomById) //good
+      .get("/roomId/:id", this.getRoomById) //good
       .post("", this.createRoom) //good
       .put("/:id", this.editRoom)//good
       .delete("/:id", this.deleteRoom) //good
