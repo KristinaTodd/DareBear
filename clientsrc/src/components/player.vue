@@ -1,10 +1,13 @@
 <template>
   <div class="col-12">
     <div class="media">
-      <img class="mr-3" :src="playerData.imgUrl" alt="Generic placeholder image" />
+      <!-- FIXME must fix dynamic picture loading using playerData.imgUrl  hard coded for styling purposes -->
+      <img class="imgSize mr-3" src="~@/assets/userbear2.png" alt="Generic image" />
       <div class="media-body">
-        <h5 class="mt-0">{{playerData.playerName}}</h5>
-        <h5 class="mt-0">Score: {{playerData.playerScore}}</h5>
+        <h5 class="text-info mt-3">
+          {{playerData.playerName}} --
+          Score: {{playerData.playerScore}}
+        </h5>
       </div>
     </div>
   </div>
@@ -14,7 +17,7 @@
 <script>
 export default {
   name: "player",
-  props: ["playerData", "playerIndex"],
+  props: ["playerData"],
   data() {
     return {};
   },
@@ -25,6 +28,10 @@ export default {
 
 
 <style scoped>
+.imgSize {
+  height: 3rem;
+  width: 3rem;
+}
 .main-font {
   font-family: "Gugi", cursive;
 }

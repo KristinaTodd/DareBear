@@ -7,13 +7,7 @@
       <div class="col-1"></div>
     </div>
     <div class="row">
-      <!-- FIXME fix the index so it works -->
-      <player
-        v-for="(playerObj) in players"
-        :key="playerObj._id"
-        :playerData="playerObj"
-        :playerIndex="index"
-      />
+      <player v-for="(playerObj) in players" :key="playerObj._id" :playerData="playerObj" />
     </div>
   </div>
 </template>
