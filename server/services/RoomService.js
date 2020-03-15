@@ -18,6 +18,14 @@ class RoomService {
     return data
   }
 
+  async getPlayersbyRoomId(id) {
+    let data = await dbContext.Rooms.findById(id)
+    if (!data) {
+      throw new BadRequest("Invalid ID")
+    }
+    return data.players
+  }
+
   async createRoom(rawData) {
     let data = await dbContext.Rooms.create(rawData)
     return data
@@ -56,7 +64,6 @@ class RoomService {
   }
   async deletePlayer(id, playerId, update) {
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $pull: { players: { _id: playerId } } }, { new: true })
-
   }
 
   editPlayer(id, playerId, update) {

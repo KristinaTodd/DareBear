@@ -13,24 +13,27 @@
 </template>
 
 <script>
-import Navbar from "../components/navbar";
-import Player from "../components/player";
-export default {
-  name: "WaitingForPlayers",
-  components: {
-    Navbar,
-    Player
-  },
-  computed: {
-    players() {
-      return this.$store.state.room.players;
+  import Navbar from "../components/navbar";
+  import Player from "../components/player";
+  export default {
+    name: "WaitingForPlayers",
+    components: {
+      Navbar,
+      Player
+    },
+    // mounted() {
+    //   this.$store.dispatch("getPlayersbyRoomId", this.$route.params.id)
+    // },
+    computed: {
+      players() {
+        return this.$store.state.room.players;
+      }
     }
-  }
-};
+  };
 </script>
 
 <style>
-.main-font {
-  font-family: "Gugi", cursive;
-}
+  .main-font {
+    font-family: "Gugi", cursive;
+  }
 </style>

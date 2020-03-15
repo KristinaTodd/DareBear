@@ -10,11 +10,12 @@ export class RoomsController extends BaseController {
       .Router()
       .get("/:roomCode", this.getRoomByRoomCode)
       .get("/roomId/:id", this.getRoomById) //good
+      .get("/roomId/players", this.getPlayersbyRoomId)
       .post("", this.createRoom) //good
       .put("/:id", this.editRoom)//good
       .delete("/:id", this.deleteRoom) //good
       .post("/:id/creator", this.createCreator) //good
-      .post("/:id/players", this.createPlayer) //good
+      .post("/:id/newPlayer", this.createPlayer) //good
       .put("/:id/players/:playerId", this.editPlayer) // works doesn't return yet
       .put("/:id/eligiblePlayers", this.editEligible)
       .put("/:id/active", this.editActive)
@@ -31,6 +32,15 @@ export class RoomsController extends BaseController {
   async getRoomById(req, res, next) {
     try {
       let data = await roomService.getRoomById(req.params.id)
+      socketService.messageRoom("rooms", "newRoom", data)
+      return res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+  async getPlayersbyRoomId(req, res, next) {
+    try {
+      let data = await roomService.getPlayersbyRoomId(req.params.id)
       socketService.messageRoom("rooms", "newRoom", data)
       return res.send(data)
     } catch (error) {
@@ -85,6 +95,7 @@ export class RoomsController extends BaseController {
       if (data) {
         return res.send(data)
       }
+      console.log(data)
     } catch (error) {
       next(error)
     }
