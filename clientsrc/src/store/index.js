@@ -31,7 +31,7 @@ export default new Vuex.Store({
     },
     async addPlayer({ commit, dispatch, state }, payload) {
       try {
-        let res = await api.post("room/" + state.room.id + "/players", payload.players)
+        let res = await api.post("room/" + state.room.id + "/newPlayer", payload.players)
         dispatch("getRoom", payload.roomCode)
       } catch (error) {
         console.error(error)
@@ -53,6 +53,14 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+    async getPlayersbyRoomId({ commit, dispatch }, roomCode) {
+      try {
+        let res = await api.get("room/" + roomCode + "/players")
+        dispatch("getRoom", roomCode)
+      } catch (error) {
+        console.error(error)
+      }
+    }
   },
   modules: {
   }
