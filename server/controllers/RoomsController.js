@@ -71,7 +71,6 @@ export class RoomsController extends BaseController {
       next(error);
     }
   }
-
   async editEligible(req, res, next) {
     try {
       let data = await roomService.editEligible(req.params.id, req.body)
@@ -122,7 +121,6 @@ export class RoomsController extends BaseController {
     }
   }
   async editPlayer(req, res, next) {
-
     try {
       let data = await roomService.editPlayer(req.params.id, req.params.playerId, req.body)
       return res.send(data)

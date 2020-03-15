@@ -3,7 +3,7 @@
     <Navbar />
     <div class="row">
       <div class="col-1"></div>
-      <div class="col-10 info-border text-info button-font">Waiting For Others To Connect</div>
+      <div class="col-10 info-border text-info button-font">Waiting For Other Players</div>
       <div class="col-1"></div>
     </div>
     <div class="row">
@@ -21,9 +21,6 @@
       Navbar,
       Player
     },
-    // mounted() {
-    //   this.$store.dispatch("getPlayersbyRoomId", this.$route.params.id)
-    // },
     computed: {
       players() {
         return this.$store.state.room.players;

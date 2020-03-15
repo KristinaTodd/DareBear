@@ -2,7 +2,7 @@
   <div class="col-12">
     <div class="row mt-2 ">
       <div class="col-1"></div>
-      <!-- FIXME must fix dynamic picture loading using playerData.imgUrl  hard coded for styling purposes -->
+      <!-- FIXME must fix dynamic picture loading using playerData.imgUrl -->
       <div class="col-3"><img class="imgSize" :src="playerData.imgUrl" alt /></div>
       <div class="col-7 info-border">
         <h5 class="text-danger">
@@ -24,11 +24,6 @@
     },
     methods: {},
     components: {}
-    // computed: {
-    //   players() {
-    //     return this.$store.state.room.players;
-    //   }
-    // },
   };
 </script>
 
