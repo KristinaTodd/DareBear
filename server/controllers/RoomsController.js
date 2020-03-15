@@ -9,17 +9,17 @@ export class RoomsController extends BaseController {
     this.router = express
       .Router()
       .get("/:roomCode", this.getRoomByRoomCode)
-      .get("/roomId/:id", this.getRoomById) //good
+      .get("/roomId/:id", this.getRoomById)
       .get("/:roomId/players", this.getPlayersbyRoomId)
-      .post("", this.createRoom) //good
-      .put("/:id", this.editRoom)//good
-      .delete("/:id", this.deleteRoom) //good
-      .post("/:id/creator", this.createCreator) //good
-      .post("/:id/newPlayer", this.createPlayer) //good
-      .put("/:id/players/:playerId", this.editPlayer) // works doesn't return yet
+      .post("", this.createRoom)
+      .put("/:id", this.editRoom)
+      .delete("/:id", this.deleteRoom)
+      .post("/:id/creator", this.createCreator)
+      .post("/:id/newPlayer", this.createPlayer)
+      .put("/:id/players/:playerId", this.editPlayer)
       .put("/:id/eligiblePlayers", this.editEligible)
       .put("/:id/active", this.editActive)
-      .post("/:id/dares", this.createDare) //good
+      .post("/:id/dares", this.createDare)
   }
   async getRoomByRoomCode(req, res, next) {
     try {
