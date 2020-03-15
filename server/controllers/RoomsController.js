@@ -10,7 +10,7 @@ export class RoomsController extends BaseController {
       .Router()
       .get("/:roomCode", this.getRoomByRoomCode)
       .get("/roomId/:id", this.getRoomById) //good
-      .get("/roomId/players", this.getPlayersbyRoomId)
+      .get("/:roomId/players", this.getPlayersbyRoomId)
       .post("", this.createRoom) //good
       .put("/:id", this.editRoom)//good
       .delete("/:id", this.deleteRoom) //good

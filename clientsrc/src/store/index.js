@@ -53,10 +53,10 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    async getPlayersbyRoomId({ commit, dispatch }, payload) {
+    async getPlayersbyRoomId({ commit, dispatch }, roomId) {
       try {
-        let res = await api.get("room/" + payload + "/players")
-        dispatch("getRoom", payload.roomCode)
+        let res = await api.get("room/" + roomId + "/players")
+        dispatch("getRoom", roomId)
       } catch (error) {
         console.error(error)
       }
