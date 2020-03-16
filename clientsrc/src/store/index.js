@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router/index'
+import { socketStore } from "./socketStore"
 Vue.use(Vuex)
 
 let base = window.location.host.includes('localhost') ? '//localhost:3000/' : '/'
@@ -63,5 +64,6 @@ export default new Vuex.Store({
     }
   },
   modules: {
+    socketStore
   }
 })

@@ -71,9 +71,10 @@ export default {
   },
   methods: {
     async addPlayer() {
+      let payload = this.newRoom;
+      this.$store.dispatch("joinRoom", `room${payload.roomCode}`);
       let random = Math.floor(Math.random() * 12);
       this.newPlayer.imgUrl = "assets/userbear" + random + ".png";
-      let payload = this.newRoom;
       await this.$store.dispatch("getRoom", payload.roomCode);
       payload.players = this.players;
       payload.players.push(this.newPlayer);
