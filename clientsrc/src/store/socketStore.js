@@ -20,6 +20,10 @@ export const socketStore = {
       socket.on("newRoom", room => {
         commit("setRoom", room);
       });
+      socket.on("start", room => {
+        commit("setRoom", room)
+        dispatch("roundView")
+      })
     },
 
     joinRoom({ commit, dispatch }, roomName) {

@@ -32,33 +32,45 @@
     </div>
     <div class="row text-center my-5">
       <div class="col-1"></div>
-      <div class="col-10 button-border text-danger button-font">Start Game</div>
+      <div class="col-10 button-border text-danger button-font" @click="start">Start Game</div>
       <div class="col-1"></div>
     </div>
   </div>
 </template>
 
 <script>
-import Navbar from "../components/navbar";
-export default {
-  name: "StartGame",
-  mounted() {
-    this.$store.dispatch("getRoom", this.$store.state.room.roomCode);
-  },
-  components: {
-    Navbar
-  },
-  computed: {
-    roomCode() {
-      return this.$store.state.room.roomCode;
+  import Navbar from "../components/navbar";
+  export default {
+    name: "StartGame",
+    mounted() {
+      this.$store.dispatch("getRoom", this.$store.state.room.roomCode);
+
+    },
+    components: {
+      Navbar
+    },
+    computed: {
+      roomCode() {
+        return this.$store.state.room.roomCode;
+      }
+    },
+    methods: {
+      async start() {
+        console.log(this.$store.state.room)
+        let payload = {
+          roomCode: this.$store.state.room.roomCode,
+          id: this.$store.state.room.id
+        }
+        await this.$store.dispatch("startGame", payload)
+        // this.$store.dispatch("start", `room${payload.roomCode}`)
+      }
     }
-  }
-};
+  };
 </script>
 <style>
-.info-border {
-  border: 3px;
-  border-style: solid;
-  border-color: #ff2a6d;
-}
+  .info-border {
+    border: 3px;
+    border-style: solid;
+    border-color: #ff2a6d;
+  }
 </style>

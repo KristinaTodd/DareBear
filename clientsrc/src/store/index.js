@@ -24,6 +24,7 @@ export default new Vuex.Store({
   actions: {
     async getRoom({ commit, dispatch, state }, roomCode) {
       try {
+
         let res = await api.get("room/" + roomCode)
         commit("setRoom", res.data)
       } catch (error) {
@@ -46,10 +47,11 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    async startGame({ commit, dispatch }, payload) {
+    async startGame({ commit, dispatch, state }, payload) {
       try {
-        let res = await api.put('/start', payload)
-        dispatch("getRoom", payload.roomCode)
+
+        let res = await api.put("room/" + payload.id + '/start', payload)
+        await dispatch("getRoom", payload.roomCode)
       } catch (error) {
         console.error(error)
       }
@@ -61,6 +63,9 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error)
       }
+    },
+    roundView({ commit, dispatch }) {
+      router.push({ name: "Round" });
     }
   },
   modules: {

@@ -19,7 +19,9 @@ export class RoomsController extends BaseController {
       .put("/:id/players/:playerId", this.editPlayer)
       .put("/:id/eligiblePlayers", this.editEligible)
       .put("/:id/active", this.editActive)
+      .put("/:id/start", this.startGame)
       .post("/:id/dares", this.createDare)
+
   }
   async getRoomByRoomCode(req, res, next) {
     try {
@@ -41,7 +43,6 @@ export class RoomsController extends BaseController {
   async getPlayersbyRoomId(req, res, next) {
     try {
       let data = await roomService.getPlayersbyRoomId(req.params.id)
-      socketService.messageRoom("rooms", "newRoom", data)
       return res.send(data)
     } catch (error) {
       next(error)
@@ -94,7 +95,15 @@ export class RoomsController extends BaseController {
       if (data) {
         return res.send(data)
       }
-      console.log(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+  async startGame(req, res, next) {
+    try {
+      req.body.started = true
+      let data = await roomService.editRoom(req.params.id, req.body)
+      socketService.messageRoom(`room${req.params.roomCode}`, "start", data)
     } catch (error) {
       next(error)
     }
