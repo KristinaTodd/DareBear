@@ -9,7 +9,7 @@ export const socketStore = {
       socket = io("//localhost:3000");
       //Handle any on connection events
       socket.on("CONNECTED", data => {
-        console.log("Connected to socket, villany may commence");
+        console.log("Connected to socket, Do you dare continue");
       });
 
       //register all listeners
