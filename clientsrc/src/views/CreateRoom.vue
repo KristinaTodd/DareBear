@@ -108,6 +108,7 @@ export default {
       this.newRoom.roomCode = Math.floor(Math.random() * 10000);
       this.newRoom.players.push(this.player);
       this.$store.dispatch("createRoom", this.newRoom);
+      this.$store.dispatch("joinRoom", `room${this.newRoom.roomCode}`);
       this.$router.push({
         name: "StartGame",
         params: { roomCode: this.newRoom.roomCode }

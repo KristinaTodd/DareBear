@@ -4,7 +4,7 @@ let socket = {};
 
 export const socketStore = {
   actions: {
-    initalizeSocket({ commit, dispatch }) {
+    initializeSocket({ commit, dispatch }) {
       //establish connection with socket
       socket = io("//localhost:3000");
       //Handle any on connection events
@@ -13,8 +13,11 @@ export const socketStore = {
       });
 
       //register all listeners
+      socket.on("getRoom", room => {
+        commit("setRoom", room);
+      });
       socket.on("newRoom", room => {
-        commit("addRoom", room);
+        commit("setRoom", room);
       });
     },
 
