@@ -9,7 +9,7 @@ let base = window.location.host.includes('localhost') ? '//localhost:3000/' : '/
 
 let api = axios.create({
   baseURL: base + "api/",
-  timeout: 300000
+  timeout: 3000
   // withCredentials: true
 })
 export default new Vuex.Store({
