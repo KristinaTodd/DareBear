@@ -103,6 +103,7 @@ export class RoomsController extends BaseController {
     try {
       req.body.started = true
       let data = await roomService.editRoom(req.params.id, req.body)
+      // @ts-ignore
       socketService.messageRoom(`room${data.roomCode}`, "start", data)
       return data;
     } catch (error) {

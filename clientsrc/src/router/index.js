@@ -6,6 +6,7 @@ import CreateRoom from '../views/CreateRoom.vue'
 import StartGame from '../views/StartGame.vue'
 import WaitingForPlayers from "../views/WaitingForPlayers.vue"
 import Round from "../views/Round.vue"
+import Dare from "../views/Dare.vue"
 
 
 Vue.use(VueRouter)
@@ -40,6 +41,11 @@ const routes = [
     path: '/round',
     name: 'Round',
     component: Round
+  },
+  {
+    path: '/dare',
+    name: 'Dare',
+    component: Dare
   }
 ]
 

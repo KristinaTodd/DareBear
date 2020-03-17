@@ -14,11 +14,15 @@ let api = axios.create({
 })
 export default new Vuex.Store({
   state: {
-    room: {}
+    room: {},
+    me: ""
   },
   mutations: {
     setRoom(state, room) {
       state.room = room
+    },
+    setMe(state, me) {
+      state.me = me
     }
   },
   actions: {
@@ -35,14 +39,18 @@ export default new Vuex.Store({
       try {
         let res = await api.post("room/" + state.room.id + "/newPlayer", payload.players)
         dispatch("getRoom", payload.roomCode)
+        commit("setMe", payload.players[0].playerCode)
       } catch (error) {
         console.error(error)
       }
     },
-    async createRoom({ commit, dispatch }, payload) {
+    async createRoom({ commit, dispatch, state }, payload) {
       try {
+        // debugger
         let res = await api.post("room/", payload);
         dispatch("getRoom", res.data.roomCode);
+        commit("setMe", payload.playerCode)
+        console.log("playerCode", state.me)
       } catch (error) {
         console.error(error);
       }

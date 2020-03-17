@@ -57,7 +57,8 @@ export default {
   data() {
     return {
       newPlayer: {
-        imgUrl: ""
+        imgUrl: "",
+        playerCode: `${Math.floor(Math.random() * 100000000)}`
       },
       newRoom: {
         players: []

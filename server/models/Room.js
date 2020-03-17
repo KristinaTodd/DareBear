@@ -12,7 +12,8 @@ const SubPlayer = new Schema({
   playerName: { type: String, required: true },
   playerScore: { type: Number, required: true, default: 0 },
   creator: { type: Boolean, required: true },
-  imgUrl: { type: String, required: false }
+  imgUrl: { type: String, required: false },
+  playerCode: { type: String, required: true }
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 
