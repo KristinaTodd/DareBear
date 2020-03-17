@@ -98,7 +98,7 @@ export default new Vuex.Store({
       }
     },
     async updateScored({ commit, dispatch }, payload) {
-      let res = await api.put("room/" + payload.id + "/updatescored")
+      let res = await api.put("room/" + payload.id + "/updatescored", payload)
     },
 
     dareView({ commit, dispatch }) {
