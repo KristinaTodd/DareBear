@@ -114,14 +114,15 @@ class RoomService {
     let data = await dbContext.Rooms.findOne({ _id: id })
     // @ts-ignore
     data.activePlayer[0] = data.eligiblePlayers[Math.floor(Math.random() * (data.eligiblePlayers.length))]
-    //NOTE Will have to edit eligible after this call, otherwise active player will not be accurate (activeplayer will be outdated)
     // @ts-ignore
     data.activeDare[0] = data.dares[Math.floor(Math.random() * (data.dares.length))]
     // @ts-ignore
     let index = data.dares.findIndex(d => d.id == data.activeDare[0]._id)
     // @ts-ignore
     data.dares.splice(index, 1)
+    await this.editEligible(id, update)
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
+
   }
 }
 
