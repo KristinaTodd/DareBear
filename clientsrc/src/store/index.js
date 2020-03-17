@@ -50,7 +50,6 @@ export default new Vuex.Store({
     async startGame({ commit, dispatch }, payload) {
       try {
         let res = await api.put("room/" + payload.id + '/start', payload)
-        await dispatch("getRoom", res.data.roomCode)
       } catch (error) {
         console.error(error)
       }

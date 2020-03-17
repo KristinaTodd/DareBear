@@ -21,7 +21,6 @@ export const socketStore = {
         commit("setRoom", room);
       });
       socket.on("start", room => {
-        commit("setRoom", room)
         dispatch("roundView")
       })
     },

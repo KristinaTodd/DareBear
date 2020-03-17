@@ -11,26 +11,29 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row pt-3">
       <div class="col-xs-12 mx-4">
-        <h5 class="text-warning">
-          Do Not Start the game until all players have joined. (You'll miss out on really cool
-          dares)
-        </h5>
-        <div class="info-border">
-          <div class="row">
+        <div class="blue-border">
+          <div class="row text-center">
             <div class="col-12">
-              <p class="text-info">Who's in...</p>
-              <p class="text-white">
-                NOTE Need to generate player icons and usernames vertically for each player in store
-                player array...
-              </p>
+              <h3 class="text-danger pt-2">Who's in...</h3>
+              <div class="row">
+                <player
+                  class="pb-2"
+                  v-for="(playerObj) in players"
+                  :key="playerObj._id"
+                  :playerData="playerObj"
+                />
+              </div>
             </div>
           </div>
         </div>
+        <h5
+          class="text-warning font-italic text-center pt-4"
+        >Do Not Start the game until all players have joined.</h5>
       </div>
     </div>
-    <div class="row text-center my-5">
+    <div class="row text-center my-2">
       <div class="col-1"></div>
       <div class="col-10 button-border text-danger button-font" @click="start">Start Game</div>
       <div class="col-1"></div>
@@ -40,14 +43,19 @@
 
 <script>
 import Navbar from "../components/navbar";
+import Player from "../components/player";
 export default {
   name: "StartGame",
   components: {
-    Navbar
+    Navbar,
+    Player
   },
   computed: {
     roomCode() {
       return this.$store.state.room.roomCode;
+    },
+    players() {
+      return this.$store.state.room.players;
     }
   },
   methods: {
@@ -57,7 +65,6 @@ export default {
         id: this.$store.state.room.id
       };
       await this.$store.dispatch("startGame", payload);
-      // this.$store.dispatch("start", `room${payload.roomCode}`)
     }
   }
 };
@@ -67,5 +74,10 @@ export default {
   border: 3px;
   border-style: solid;
   border-color: #ff2a6d;
+}
+.blue-border {
+  border: 3px;
+  border-style: solid;
+  border-color: #05d9e8;
 }
 </style>
