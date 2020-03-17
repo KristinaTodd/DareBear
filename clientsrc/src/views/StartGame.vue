@@ -39,38 +39,33 @@
 </template>
 
 <script>
-  import Navbar from "../components/navbar";
-  export default {
-    name: "StartGame",
-    mounted() {
-      this.$store.dispatch("getRoom", this.$store.state.room.roomCode);
-
-    },
-    components: {
-      Navbar
-    },
-    computed: {
-      roomCode() {
-        return this.$store.state.room.roomCode;
-      }
-    },
-    methods: {
-      async start() {
-        console.log(this.$store.state.room)
-        let payload = {
-          roomCode: this.$store.state.room.roomCode,
-          id: this.$store.state.room.id
-        }
-        await this.$store.dispatch("startGame", payload)
-        // this.$store.dispatch("start", `room${payload.roomCode}`)
-      }
+import Navbar from "../components/navbar";
+export default {
+  name: "StartGame",
+  components: {
+    Navbar
+  },
+  computed: {
+    roomCode() {
+      return this.$store.state.room.roomCode;
     }
-  };
+  },
+  methods: {
+    async start() {
+      let payload = {
+        roomCode: this.$store.state.room.roomCode,
+        id: this.$store.state.room.id
+      };
+      await this.$store.dispatch("startGame", payload);
+      // this.$store.dispatch("start", `room${payload.roomCode}`)
+    }
+  }
+};
 </script>
 <style>
-  .info-border {
-    border: 3px;
-    border-style: solid;
-    border-color: #ff2a6d;
-  }
+.info-border {
+  border: 3px;
+  border-style: solid;
+  border-color: #ff2a6d;
+}
 </style>
