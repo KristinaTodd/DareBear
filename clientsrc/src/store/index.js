@@ -22,9 +22,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async getRoom({ commit, dispatch, state }, roomCode) {
+    async getRoom({ commit, dispatch }, roomCode) {
       try {
-
+        console.log("getRoom called w/", roomCode)
         let res = await api.get("room/" + roomCode)
         commit("setRoom", res.data)
       } catch (error) {
@@ -41,17 +41,16 @@ export default new Vuex.Store({
     },
     async createRoom({ commit, dispatch }, payload) {
       try {
-        let res = await api.post("room/", payload)
-        dispatch("getRoom", payload.roomCode)
+        let res = await api.post("room/", payload);
+        dispatch("getRoom", res.data.roomCode);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     },
-    async startGame({ commit, dispatch, state }, payload) {
+    async startGame({ commit, dispatch }, payload) {
       try {
-
         let res = await api.put("room/" + payload.id + '/start', payload)
-        await dispatch("getRoom", payload.roomCode)
+        await dispatch("getRoom", res.data.roomCode)
       } catch (error) {
         console.error(error)
       }
