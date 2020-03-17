@@ -88,9 +88,23 @@ export default new Vuex.Store({
     roundView({ commit, dispatch }) {
       router.push({ name: "Round" });
     },
+
+    async scorePlayer({ commit, dispatch }, payload) {
+      try {
+        let res = await api.put("room/" + payload.id + "/players/" + payload.playerId, payload)
+        dispatch("getRoom", payload.roomCode)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async updateScored({ commit, dispatch }, payload) {
+      let res = await api.put("room/" + payload.id + "/updatescored")
+    },
+
     dareView({ commit, dispatch }) {
       router.push({ name: "Dare" });
-    },
+    }
+
   },
   modules: {
     socketStore
