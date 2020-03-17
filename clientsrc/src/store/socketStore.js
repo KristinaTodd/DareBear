@@ -22,6 +22,9 @@ export const socketStore = {
       });
       socket.on("start", room => {
         dispatch("roundView")
+      });
+      socket.on("startRound", room => {
+        dispatch("dareView")
       })
     },
 
