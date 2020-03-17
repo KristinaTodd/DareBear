@@ -46,7 +46,6 @@ export default new Vuex.Store({
     },
     async createRoom({ commit, dispatch, state }, payload) {
       try {
-        // debugger
         let res = await api.post("room/", payload);
         dispatch("getRoom", res.data.roomCode);
         commit("setMe", payload.playerCode)
@@ -70,9 +69,26 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+    async editDares({ commit, dispatch, state }, payload) {
+      try {
+        let res = await api.post("room/" + state.room.id + "/dares", payload.dares)
+        dispatch("getRoom", payload.roomCode)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async editActive({ commit, dispatch, state }, payload) {
+      try {
+        let res = await api.put("room/" + state.room.id, payload)
+        dispatch("getRoom", payload.roomCode)
+      } catch (error) {
+        console.error(error)
+      }
+    },
     roundView({ commit, dispatch }) {
       router.push({ name: "Round" });
     },
+
     async scorePlayer({ commit, dispatch }, payload) {
       try {
         let res = await api.put("room/" + payload.id + "/players/" + payload.playerId, payload)
@@ -83,7 +99,12 @@ export default new Vuex.Store({
     },
     async updateScored({ commit, dispatch }, payload) {
       let res = await api.put("room/" + payload.id + "/updatescored")
+    },
+
+    dareView({ commit, dispatch }) {
+      router.push({ name: "Dare" });
     }
+
   },
   modules: {
     socketStore

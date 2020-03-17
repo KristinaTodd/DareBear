@@ -1,8 +1,7 @@
 <template>
   <div class="col-12">
-    <div class="row mt-2">
+    <div class="row mt-2 mb-2">
       <div class="col-1"></div>
-      <!-- FIXME must fix dynamic picture loading using playerData.imgUrl -->
       <div class="col-3">
         <img class="imgSize" :src="require(`../${playerData.imgUrl}`)" alt />
       </div>
@@ -20,53 +19,54 @@
 
 
 <script>
-export default {
-  name: "player",
-  props: ["playerData"],
-  data() {
-    return {};
-  },
-  methods: {},
-  components: {}
-};
+  export default {
+    name: "player",
+    props: ["playerData"],
+    data() {
+      return {};
+    },
+    methods: {},
+    components: {}
+  };
 </script>
 
 
 <style scoped>
-.card-padding {
-  padding-top: 0.6rem;
-}
-.imgSize {
-  height: 3rem;
-  width: 3rem;
-}
+  .card-padding {
+    padding-top: 0.6rem;
+  }
 
-.main-font {
-  font-family: "Gugi", cursive;
-}
+  .imgSize {
+    height: 3rem;
+    width: 3rem;
+  }
 
-.info-border {
-  border: 3px;
-  border-style: solid;
-  border-color: #ff2a6d;
-}
+  .main-font {
+    font-family: "Gugi", cursive;
+  }
 
-::placeholder {
-  color: #d1f7ff;
-  opacity: 1;
-}
+  .info-border {
+    border: 3px;
+    border-style: solid;
+    border-color: #ff2a6d;
+  }
 
-.button-font {
-  font-size: 2rem;
-}
+  ::placeholder {
+    color: #d1f7ff;
+    opacity: 1;
+  }
 
-.input-font {
-  font-size: 1.5rem;
-}
+  .button-font {
+    font-size: 2rem;
+  }
 
-.button-border {
-  border: 3px;
-  border-style: solid;
-  border-color: #05d9e8;
-}
+  .input-font {
+    font-size: 1.5rem;
+  }
+
+  .button-border {
+    border: 3px;
+    border-style: solid;
+    border-color: #05d9e8;
+  }
 </style>
