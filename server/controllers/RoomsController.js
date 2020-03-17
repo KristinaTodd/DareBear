@@ -84,6 +84,8 @@ export class RoomsController extends BaseController {
   async editActive(req, res, next) {
     try {
       let data = await roomService.editActive(req.params.id, req.body)
+      // @ts-ignore
+      socketService.messageRoom(`room${data.roomCode}`, "startRound", data)
       res.send(data);
     } catch (error) {
       next(error);

@@ -61,11 +61,11 @@
     data() {
       return {
         newDare: {
-          dare: "",
           playerCode: this.$store.state.me
         },
         newRoom: {
-          dares: []
+          dares: [],
+          roomCode: this.$store.state.room.roomCode
         }
       };
     },
@@ -82,11 +82,9 @@
         let payload = this.newRoom;
         payload.dares = this.room.dares;
         payload.dares.push(this.newDare);
-        this.$store.dispatch("addPlayer", payload);
-        await this.$store.dispatch("getRoom", payload.roomCode);
-        if (this.newRoom.dares.length == this.newRoom.players.length) {
+        await this.$store.dispatch("editDares", payload)
+        if (this.room.dares.length == this.room.players.length) {
           this.$store.dispatch("editActive", payload)
-          this.$store.dispatch("startRound", payload);
         }
 
       }
