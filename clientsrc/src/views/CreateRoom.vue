@@ -86,7 +86,6 @@
     },
     methods: {
       createRoom() {
-        debugger;
         let playerCode = Math.floor(Math.random() * 100000000);
         this.player.playerCode = playerCode;
         this.newRoom.playerCode = playerCode;
