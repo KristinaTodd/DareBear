@@ -10,8 +10,14 @@
       <div class="col-1"></div>
       <div class="col-10 text-info">
         <form>
-          <input type="text" class="bg-transparent button-border text-danger input-font" placeholder="name..."
-            v-model="player.playerName" required maxlength="10" />
+          <input
+            type="text"
+            class="bg-transparent button-border text-danger input-font"
+            placeholder="name..."
+            v-model="player.playerName"
+            required
+            maxlength="10"
+          />
         </form>
       </div>
       <div class="col-1"></div>
@@ -26,8 +32,12 @@
       <div class="col-6 text-center">
         <form>
           <div class="form-group">
-            <select v-model="newRoom.roundTotal" class="form-control text-danger bg-transparent button-border"
-              placeholder="Choose" required>
+            <select
+              v-model="newRoom.roundTotal"
+              class="form-control text-danger bg-transparent button-border"
+              placeholder="Choose"
+              required
+            >
               <option class="bg-primary">1</option>
               <option class="bg-primary">2</option>
               <option class="bg-primary">3</option>
@@ -48,15 +58,24 @@
       <div class="col-1"></div>
       <div class="col-10 text-info">
         <form class>
-          <input type="text" class="bg-transparent button-border text-danger input-font" placeholder="room name..."
-            v-model="newRoom.roomName" required maxlength="15" />
+          <input
+            type="text"
+            class="bg-transparent button-border text-danger input-font"
+            placeholder="room name..."
+            v-model="newRoom.roomName"
+            required
+            maxlength="15"
+          />
         </form>
       </div>
       <div class="col-1"></div>
     </div>
     <div class="row text-center py-5">
       <div class="col-1"></div>
-      <div class="col-10 button-border text-danger text-center button-font" @click="createRoom">Create Room!</div>
+      <div
+        class="col-10 button-border text-danger text-center button-font"
+        @click="createRoom"
+      >Create Room!</div>
       <div class="col-1"></div>
     </div>
   </div>
@@ -97,41 +116,41 @@
           params: { roomCode: this.newRoom.roomCode }
         });
       }
-    }
-  };
+    };
+  }
 </script>
 <style scoped>
-  .main-font {
-    font-family: "Gugi", cursive;
-  }
+.main-font {
+  font-family: "Gugi", cursive;
+}
 
-  .info-border {
-    border: 3px;
-    border-style: solid;
-    border-color: #ff2a6d;
-  }
+.info-border {
+  border: 3px;
+  border-style: solid;
+  border-color: #ff2a6d;
+}
 
-  ::placeholder {
-    color: #f3739c;
-    opacity: 1;
-  }
+::placeholder {
+  color: #f3739c;
+  opacity: 1;
+}
 
-  .button-font {
-    font-size: 2rem;
-  }
+.button-font {
+  font-size: 2rem;
+}
 
-  .input-font {
-    font-size: 1.5rem;
-    padding-left: 1rem;
-  }
+.input-font {
+  font-size: 1.5rem;
+  padding-left: 1rem;
+}
 
-  .button-border {
-    border: 3px;
-    border-style: solid;
-    border-color: #05d9e8;
-  }
+.button-border {
+  border: 3px;
+  border-style: solid;
+  border-color: #05d9e8;
+}
 
-  select {
-    width: 10rem;
-  }
+select {
+  width: 10rem;
+}
 </style>
