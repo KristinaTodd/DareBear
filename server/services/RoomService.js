@@ -121,7 +121,16 @@ class RoomService {
     let index = data.dares.findIndex(d => d.id == data.activeDare[0]._id)
     // @ts-ignore
     data.dares.splice(index, 1)
-    return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
+    return await dbContext.Rooms.findOneAndUpdate({ id: id }, data, { new: true })
+  }
+  async updateScored(id, playerCode) {
+    let data = await dbContext.Rooms.findOne({ id: id })
+    let tempArr = data.players
+    tempArr = tempArr.filter(p => {
+      p.playerCode == playerCode
+    })
+    data.scored = data.scored.concat(tempArr)
+    return await dbContext.Rooms.findOneAndUpdate({ id: id }, data, { new: true })
   }
 }
 

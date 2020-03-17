@@ -5,7 +5,7 @@ let ObjectId = Schema.Types.ObjectId
 
 const SubDare = new Schema({
   dare: { type: String, required: true },
-  playerId: { type: ObjectId, ref: 'Room.players', required: true },
+  playerCode: { type: String, ref: 'Room.players', required: true },
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 const SubPlayer = new Schema({
