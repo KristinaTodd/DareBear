@@ -105,6 +105,10 @@ export default {
   },
   methods: {
     createRoom() {
+      debugger;
+      let playerCode = Math.floor(Math.random() * 100000000);
+      this.player.playerCode = playerCode;
+      this.newRoom.playerCode = playerCode;
       this.newRoom.players.push(this.player);
       this.$store.dispatch("createRoom", this.newRoom);
       this.$store.dispatch("joinRoom", `room${this.newRoom.roomCode}`);
