@@ -1,5 +1,5 @@
 <template>
-  <div class="main-font">
+  <div v-if="room" class="main-font">
     <div class="row my-2">
       <div class="col-1"></div>
       <div class="col-10 text-info info-border text-center">
@@ -19,10 +19,10 @@
       <div class="col-1"></div>
       <div class="col-10 text-info info-border text-center">
         <span class="text-info tex-center">Be kind! You could end up with your own dare!</span>
-        <form>
+        <form @submit.prevent="submitDare">
           <input type="text" class="bg-transparent blue-border text-danger input-font my-2 mr-1"
             placeholder="Enter Your Dare..." v-model="newDare.dare" required />
-          <button @click="submitDare" class="bg-transparent blue-border text-danger input-font my-2"> + </button>
+          <button type="submit" class="bg-transparent blue-border text-danger input-font my-2"> + </button>
         </form>
       </div>
       <div class="col-1"></div>
@@ -30,7 +30,7 @@
     <div class="row my-2">
       <div class="col-1"></div>
       <div class="col-10 text-info info-border text-center pt-2">
-        <h4>{{this.room.eligiblePlayers.length}} / {{this.room.players.length}} Players Ready</h4>
+        <h3>{{this.room.dares.length}} / {{this.room.players.length}} Players Ready</h3>
       </div>
       <div class="col-1"></div>
     </div>
@@ -55,6 +55,9 @@
   import player from "../components/player.vue";
   export default {
     name: "Round",
+    // mounted() {
+    //   this.$store.dispatch("getRoom", this.$store.state.room.roomCode);
+    //},
     components: {
       player
     },
@@ -78,11 +81,14 @@
       }
     },
     methods: {
-      async submitDare() {
+      submitDare() {
         let payload = this.newRoom;
         payload.dares = this.room.dares;
+        debugger
         payload.dares.push(this.newDare);
-        await this.$store.dispatch("editDares", payload)
+
+        this.$store.dispatch("editDares", payload)
+        debugger
         if (this.room.dares.length == this.room.players.length) {
           this.$store.dispatch("editActive", payload)
         }
