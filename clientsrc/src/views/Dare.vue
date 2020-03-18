@@ -34,8 +34,14 @@
       <div class="col-1"></div>
     </div>
 
-    <div class="modal fade" id="score-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-      aria-hidden="true">
+    <div
+      class="modal fade"
+      id="score-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body bg-primary text-danger">
@@ -123,7 +129,7 @@ export default {
       if (
         this.$store.state.room.scored.length ==
           this.$store.state.room.players.length - 1 &&
-          this.$store.state.room.roundCount ==
+        this.$store.state.room.roundCount ==
           this.$store.state.room.roundTotal &&
         this.$store.state.room.eligiblePlayers.length == 0
       ) {
@@ -146,43 +152,44 @@ export default {
         this.$store.dispatch("waitingView");
       }
     }
-  };
+  }
+};
 </script>
 
 <style>
-  .info-border {
-    border: 5px;
-    border-style: solid;
-    border-color: #ff2a6d;
-  }
+.info-border {
+  border: 5px;
+  border-style: solid;
+  border-color: #ff2a6d;
+}
 
-  .button-border {
-    border: 3px;
-    border-style: solid;
-    border-color: #05d9e8;
-  }
+.button-border {
+  border: 3px;
+  border-style: solid;
+  border-color: #05d9e8;
+}
 
-  .button-font {
-    font-size: 2rem;
-  }
+.button-font {
+  font-size: 2rem;
+}
 
-  .main-font {
-    font-family: "Gugi", cursive;
-  }
+.main-font {
+  font-family: "Gugi", cursive;
+}
 
-  .img-width {
-    width: 14rem;
-  }
+.img-width {
+  width: 14rem;
+}
 
-  .small-text {
-    font-size: 1.2rem;
-  }
+.small-text {
+  font-size: 1.2rem;
+}
 
-  .title-font {
-    font-size: 2rem;
-  }
+.title-font {
+  font-size: 2rem;
+}
 
-  .score-font {
-    font-size: 4rem;
-  }
+.score-font {
+  font-size: 4rem;
+}
 </style>
