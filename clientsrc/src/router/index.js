@@ -7,6 +7,8 @@ import StartGame from '../views/StartGame.vue'
 import WaitingForPlayers from "../views/WaitingForPlayers.vue"
 import Round from "../views/Round.vue"
 import Dare from "../views/Dare.vue"
+import Waiting from "../views/Waiting.vue"
+import GameOver from "../views/GameOver.vue"
 
 
 Vue.use(VueRouter)
@@ -46,6 +48,16 @@ const routes = [
     path: '/dare',
     name: 'Dare',
     component: Dare
+  },
+  {
+    path: '/waiting',
+    name: 'Waiting',
+    component: Waiting
+  },
+  {
+    path: '/gameover',
+    name: 'GameOver',
+    component: GameOver
   }
 ]
 
