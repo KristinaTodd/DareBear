@@ -82,42 +82,42 @@
 </template>
 
 <script>
-  import Navbar from "../components/navbar";
-  export default {
-    name: "createroom",
-    components: {
-      Navbar
-    },
-    data() {
-      return {
-        newRoom: {
-          roomCode: Math.floor(Math.random() * 10000),
-          roundTotal: "",
-          roomName: "",
-          players: []
-        },
-        player: {
-          playerName: "",
-          creator: true,
-          imgUrl: `assets/userbear${Math.floor(Math.random() * 12)}.png`
-        }
-      };
-    },
-    methods: {
-      createRoom() {
-        let playerCode = Math.floor(Math.random() * 100000000);
-        this.player.playerCode = playerCode;
-        this.newRoom.playerCode = playerCode;
-        this.newRoom.players.push(this.player);
-        this.$store.dispatch("createRoom", this.newRoom);
-        this.$store.dispatch("joinRoom", `room${this.newRoom.roomCode}`);
-        this.$router.push({
-          name: "StartGame",
-          params: { roomCode: this.newRoom.roomCode }
-        });
+import Navbar from "../components/navbar";
+export default {
+  name: "createroom",
+  components: {
+    Navbar
+  },
+  data() {
+    return {
+      newRoom: {
+        roomCode: Math.floor(Math.random() * 10000),
+        roundTotal: "",
+        roomName: "",
+        players: []
+      },
+      player: {
+        playerName: "",
+        creator: true,
+        imgUrl: `assets/userbear${Math.floor(Math.random() * 12)}.png`
       }
     };
+  },
+  methods: {
+    createRoom() {
+      let playerCode = Math.floor(Math.random() * 100000000);
+      this.player.playerCode = playerCode;
+      this.newRoom.playerCode = playerCode;
+      this.newRoom.players.push(this.player);
+      this.$store.dispatch("createRoom", this.newRoom);
+      this.$store.dispatch("joinRoom", `room${this.newRoom.roomCode}`);
+      this.$router.push({
+        name: "StartGame",
+        params: { roomCode: this.newRoom.roomCode }
+      });
+    }
   }
+};
 </script>
 <style scoped>
 .main-font {
