@@ -128,6 +128,29 @@ export default {
       let payload = this.player;
       await this.$store.dispatch("scorePlayer", this.player);
       await this.$store.dispatch("updateScored", this.player);
+      if (
+        this.$store.state.room.scored.length ==
+          this.$store.state.room.players.length - 1 &&
+        this.$store.state.room.roundCount ==
+          this.$store.state.room.roundTotal &&
+        this.$store.state.room.eligiblePlayers.length == 0
+      ) {
+        dispatch("endGame", payload);
+      } else if (
+        this.$store.state.room.scored.length ==
+          this.$store.state.room.players.length - 1 &&
+        this.$store.state.room.eligiblePlayers.length == 0
+      ) {
+        dispatch("endRound", payload);
+      } else if (
+        this.$store.state.room.scored.length ==
+        this.$store.state.room.players.length - 1
+      ) {
+        dispatch("endTurn", payload);
+        dispatch("editActive", payload);
+      } else {
+        dispatch("waiting", payload);
+      }
       $("#score-modal").modal("toggle");
     }
   }
