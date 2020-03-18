@@ -30,7 +30,7 @@ export class RoomsController extends BaseController {
   async getRoomByRoomCode(req, res, next) {
     try {
       let data = await roomService.getRoomByRoomCode(req.params)
-      socketService.messageRoom(`room${req.params.roomCode}`, "getRoom", data)
+      //socketService.messageRoom(`room${req.params.roomCode}`, "getRoom", data)
       res.send(data)
     } catch (error) {
       next(error)
@@ -88,6 +88,7 @@ export class RoomsController extends BaseController {
     try {
       let data = await roomService.editActive(req.params.id, req.body)
       // @ts-ignore
+      socketService.messageRoom(`room${data.roomCode}`, "updateRoom", data)
       socketService.messageRoom(`room${data.roomCode}`, "startRound", data)
       res.send(data);
     } catch (error) {
@@ -98,6 +99,7 @@ export class RoomsController extends BaseController {
     try {
       req.body.creator = false
       let data = await roomService.createPlayer(req.params.id, req.body)
+      //socketService.messageRoom(`room${req.body.roomCode}`, 'updateRoom', data)
       if (data) {
         res.send(data)
       }
@@ -130,6 +132,7 @@ export class RoomsController extends BaseController {
   async createDare(req, res, next) {
     try {
       let data = await roomService.createDare(req.params.id, req.body)
+      socketService.messageRoom(`room${req.body.roomCode}`, "updateRoom", data)
       if (data) {
         res.send(data)
       }

@@ -15,9 +15,11 @@ export const socketStore = {
 
       //register all listeners
       socket.on("getRoom", room => {
+        console.log("setting room from socketstore", "getRoom")
         commit("setRoom", room);
       });
       socket.on("newRoom", room => {
+        console.log("setting room from socketstore", "newRoom")
         commit("setRoom", room);
       });
       socket.on("start", room => {
@@ -41,6 +43,11 @@ export const socketStore = {
       socket.on("modal", room => {
         dispatch("modalView")
       });
+
+      socket.on("updateRoom", room => {
+        debugger
+        commit('setRoom', room)
+      })
     },
 
     joinRoom({ commit, dispatch }, roomName) {

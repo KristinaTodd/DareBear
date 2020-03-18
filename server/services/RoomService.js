@@ -53,7 +53,7 @@ class RoomService {
 
   async createDare(id, body) {
     let data = await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $addToSet: { dares: body } }, { new: true })
-    if (!data.eligiblePlayers) {
+    if (!data.eligiblePlayers.length) {
       data = await this.resetEligible(id)
     }
     return data
@@ -107,8 +107,8 @@ class RoomService {
 
   }
   // @ts-ignore
-  async editEligible(id, update) {//NOTE always call after editActive
-    let data = await dbContext.Rooms.findOne({ _id: id })
+  async editEligible(id, update, data) {//NOTE always call after editActive
+    data = data || await dbContext.Rooms.findOne({ _id: id })
     // @ts-ignore
     if (data.eligiblePlayers.length == 0) {
       // @ts-ignore
@@ -119,24 +119,30 @@ class RoomService {
       // @ts-ignore
       data.eligiblePlayers.filter(p => {
         // @ts-ignore
-        p.id == data.activePlayer[0].id;
+        p._id.equals(data.activePlayer[0]._id)
       })
     }
-    return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
+    await data.save()
+    return data
   }
   // @ts-ignore
   async editActive(id, update) {
     let data = await dbContext.Rooms.findOne({ _id: id })
     // @ts-ignore
     data.activePlayer[0] = data.eligiblePlayers[Math.floor(Math.random() * (data.eligiblePlayers.length))]
+    //data.activePlayer[0] = data.eligiblePlayers[0]
+    //FIXME make these strings not arrays that ref the playerId/dareId
     // @ts-ignore
     data.activeDare[0] = data.dares[Math.floor(Math.random() * (data.dares.length))]
     // @ts-ignore
     let index = data.dares.findIndex(d => d.id == data.activeDare[0]._id)
+
     // @ts-ignore
+
     data.dares.splice(index, 1)
-    await this.editEligible(id, update)
-    return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
+    await data.save()
+    //await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
+    return await this.editEligible(id, update, data)
   }
   async updateScored(id, playerCode) {
     let data = await dbContext.Rooms.findOne({ _id: id })
