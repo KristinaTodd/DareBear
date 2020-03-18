@@ -25,6 +25,18 @@ export const socketStore = {
       });
       socket.on("startRound", room => {
         dispatch("dareView")
+      });
+      socket.on("endGame", room => {
+        dispatch("endGameView")
+      });
+      socket.on("endRound", room => {
+        dispatch("endRoundView")
+      });
+      socket.on("endTurn", room => {
+        dispatch("endTurnView")
+      });
+      socket.on("waiting", room => {
+        dispatch("waitingView")
       })
     },
 

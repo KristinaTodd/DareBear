@@ -92,19 +92,58 @@ export default new Vuex.Store({
     async scorePlayer({ commit, dispatch }, payload) {
       try {
         let res = await api.put("room/" + payload.id + "/players/" + payload.playerId, payload)
-        dispatch("getRoom", payload.roomCode)
       } catch (error) {
         console.error(error)
       }
     },
     async updateScored({ commit, dispatch }, payload) {
       let res = await api.put("room/" + payload.id + "/updatescored", payload)
+      dispatch("getRoom", payload.roomCode)
     },
 
     dareView({ commit, dispatch }) {
       router.push({ name: "Dare" });
+    },
+    async endGame({ commit, dispatch }, payload) {
+      try {
+        let res = await api.put("room/" + payload.id + '/endgame', payload)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async endRound({ commit, dispatch }, payload) {
+      try {
+        let res = await api.put("room/" + payload.id + '/endround', payload)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async endTurn({ commit, dispatch }, payload) {
+      try {
+        let res = await api.put("room/" + payload.id + '/endturn', payload)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    endGameView({ commit, dispatch }) {
+      router.push({ name: "GameOver" });
+    },
+    endRoundView({ commit, dispatch }) {
+      router.push({ name: "Round" });
+    },
+    endTurnView({ commit, dispatch }) {
+      router.push({ name: "Dare" });
+    },
+    async waiting({ commit, dispatch }, payload) {
+      try {
+        let res = await api.put("room/" + payload.id + "/waiting", payload)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    waitingView({ commit, dispatch }) {
+      router.push({ name: "Waiting" });
     }
-
   },
   modules: {
     socketStore
