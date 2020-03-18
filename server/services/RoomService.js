@@ -46,12 +46,27 @@ class RoomService {
       throw new BadRequest("Invalid ID")
     }
   }
+
   async createPlayer(id, body) {
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $addToSet: { players: body } }, { new: true })
   }
+
   async createDare(id, body) {
-    return await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $addToSet: { dares: body } }, { new: true })
+    let data = await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $addToSet: { dares: body } }, { new: true })
+    if (!data.eligiblePlayers) {
+      data = await this.resetEligible(id)
+    }
+    return data
   }
+
+  async resetEligible(id) {
+    let data = await dbContext.Rooms.findOne({ _id: id })
+
+    data.eligiblePlayers = data.players
+
+    return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
+  }
+
   async editPlayerScore(id, playerId, update) {
     let data = await dbContext.Rooms.findOne({ _id: id })
     // @ts-ignore

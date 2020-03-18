@@ -86,7 +86,6 @@
         if (this.room.dares.length == this.room.players.length) {
           this.$store.dispatch("editActive", payload)
         }
-
       }
     }
   };
