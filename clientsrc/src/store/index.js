@@ -28,7 +28,6 @@ export default new Vuex.Store({
   actions: {
     async getRoom({ commit, dispatch }, roomCode) {
       try {
-        console.log("getRoom called w/", roomCode)
         let res = await api.get("room/" + roomCode)
         commit("setRoom", res.data)
       } catch (error) {
@@ -79,7 +78,7 @@ export default new Vuex.Store({
     },
     async editActive({ commit, dispatch, state }, payload) {
       try {
-        let res = await api.put("room/" + state.room.id, payload)
+        let res = await api.put("room/" + state.room.id + "/active", payload)
         dispatch("getRoom", payload.roomCode)
       } catch (error) {
         console.error(error)
