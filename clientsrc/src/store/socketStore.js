@@ -37,7 +37,10 @@ export const socketStore = {
       });
       socket.on("waiting", room => {
         dispatch("waitingView")
-      })
+      });
+      socket.on("modal", room => {
+        dispatch("modalView")
+      });
     },
 
     joinRoom({ commit, dispatch }, roomName) {

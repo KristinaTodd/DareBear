@@ -141,10 +141,14 @@ class RoomService {
   async updateScored(id, playerCode) {
     let data = await dbContext.Rooms.findOne({ _id: id })
     let tempArr = data.players
-    tempArr = tempArr.filter(p =>
-      p.playerCode == playerCode
-    )
-    data.scored = data.scored.concat(tempArr)
+    if ((data.players.length - 1) == data.scored.length) {
+      data.scored = []
+    } else {
+      tempArr = tempArr.filter(p =>
+        p.playerCode == playerCode
+      )
+      data.scored = data.scored.concat(tempArr)
+    }
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
   }
 }

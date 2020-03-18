@@ -3,10 +3,10 @@
     <div class="row text-center pt-4">
       <div class="col-1"></div>
       <div class="col-10 info-border text-info pt-2">
-        <!-- <h1>{{this.$store.state.room.activePlayer.playerName}}</h1> -->
-        <h1>Player Name</h1>
-        <img src="../assets/userbear5.png" class="img-width py-4" />
-        <!-- <img :src="this.$store.state.room.activePlayer.imgUrl" alt width="5rem" height="5rem" /> -->
+        <h1>{{this.$store.state.room.activePlayer.playerName}}</h1>
+        <!-- <h1>Player Name</h1> -->
+        <!-- <img src="../assets/userbear5.png" class="img-width py-4" /> -->
+        <img :src="this.$store.state.room.activePlayer.imgUrl" alt width="5rem" height="5rem" />
       </div>
       <div class="col-1"></div>
     </div>
@@ -15,23 +15,24 @@
       <div class="col-10 info-border text-info pt-2 button-font">
         <span class="small-text">
           Hey PlayerName
-          <!--{{this.$store.state.room.activePlayer.playerName}}-->
+          {{this.$store.state.room.activePlayer.playerName}}
           this is your dare:
         </span>
         <br />
-        <!--{{this.$store.state.room.activeDare.dare}}-->
-        spank Tim with a rowing oar!
+        {{this.$store.state.room.activeDare.dare}}
+        <!-- spank Tim with a rowing oar! -->
       </div>
       <div class="col-1"></div>
     </div>
     <div class="row text-center pt-5">
       <div class="col-1"></div>
-      <div class="col-10 button-border text-danger button-font">Finished!</div>
+      <div
+        v-show="this.$store.state.me == this.$store.state.room.activePlayer.playerCode"
+        class="col-10 button-border text-danger button-font"
+        @click="modal"
+      >Finished!</div>
       <div class="col-1"></div>
     </div>
-
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#score-modal">Launch demo
-      modal</button>
 
     <div class="modal fade" id="score-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
       aria-hidden="true">
@@ -89,59 +90,60 @@
 </template>
 
 <script>
-  export default {
-    name: "Dare",
-    computed: {
-      room() {
-        return this.$store.state.room;
+export default {
+  name: "Dare",
+  computed: {
+    room() {
+      return this.$store.state.room;
+    },
+    me() {
+      return this.$store.state.me;
+    }
+  },
+  data() {
+    return {
+      player: {
+        playerId: this.$store.state.room.activePlayer.id,
+        id: this.$store.state.room.id,
+        roomCode: this.$store.state.room.roomCode,
+        playerCode: this.$store.state.me
       }
+    };
+  },
+  methods: {
+    async modal() {
+      this.$store.dispatch("modal");
     },
-    computed: {
-      room() {
-        return this.$store.state.room;
-      }
-    },
-    data() {
-      return {
-        player: {
-          playerId: this.$store.state.room.activePlayer.id,
-          id: this.$store.state.room.id,
-          roomCode: this.$store.state.room.roomCode,
-          playerCode: this.$store.state.me
-        }
-      };
-    },
-    methods: {
-      async score(num) {
-        this.player.score = num;
-        console.log("Score is", this.player.score);
-        let payload = this.player;
-        await this.$store.dispatch("scorePlayer", this.player);
-        await this.$store.dispatch("updateScored", this.player);
-        if (
-          this.$store.state.room.scored.length ==
+    async score(num) {
+      this.player.score = num;
+      console.log("Score is", this.player.score);
+      let payload = this.player;
+      await this.$store.dispatch("scorePlayer", this.player);
+      await this.$store.dispatch("updateScored", this.player);
+      if (
+        this.$store.state.room.scored.length ==
           this.$store.state.room.players.length - 1 &&
           this.$store.state.room.roundCount ==
           this.$store.state.room.roundTotal &&
-          this.$store.state.room.eligiblePlayers.length == 0
-        ) {
-          dispatch("endGame", payload);
-        } else if (
-          this.$store.state.room.scored.length ==
+        this.$store.state.room.eligiblePlayers.length == 0
+      ) {
+        this.$store.dispatch("endGame", payload);
+      } else if (
+        this.$store.state.room.scored.length ==
           this.$store.state.room.players.length - 1 &&
-          this.$store.state.room.eligiblePlayers.length == 0
-        ) {
-          dispatch("endRound", payload);
-        } else if (
-          this.$store.state.room.scored.length ==
-          this.$store.state.room.players.length - 1
-        ) {
-          dispatch("endTurn", payload);
-          dispatch("editActive", payload);
-        } else {
-          dispatch("waiting", payload);
-        }
-        $("#score-modal").modal("toggle");
+        this.$store.state.room.eligiblePlayers.length == 0
+      ) {
+        await this.$store.dispatch("updateScored", payload);
+        this.$store.dispatch("endRound", payload);
+      } else if (
+        this.$store.state.room.scored.length ==
+        this.$store.state.room.players.length - 1
+      ) {
+        await this.$store.dispatch("updateScored", payload);
+        this.$store.dispatch("endTurn", payload);
+        this.$store.dispatch("editActive", payload);
+      } else {
+        this.$store.dispatch("waitingView");
       }
     }
   };

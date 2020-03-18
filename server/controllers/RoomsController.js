@@ -22,7 +22,10 @@ export class RoomsController extends BaseController {
       .put("/:id/start", this.startGame)
       .post("/:id/dares", this.createDare)
       .put("/:id/updatescored", this.updateScored)
-
+      .put("/:id/endgame", this.endGame)
+      .put("/:id/endround", this.endRound)
+      .put("/:id/endturn", this.endTurn)
+      .put("/:id/modal", this.modal)
   }
   async getRoomByRoomCode(req, res, next) {
     try {
@@ -146,6 +149,35 @@ export class RoomsController extends BaseController {
     try {
       let data = await roomService.updateScored(req.params.id, req.body.playerCode)
       res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+  async endGame(req, res, next) {
+    try {
+      socketService.messageRoom(`room${req.body.roomCode}`, "endGame", req.body)
+    } catch (error) {
+      next(error)
+    }
+  }
+  async endRound(req, res, next) {
+    try {
+      let data = await roomService.editEligible(req.params.id, req.body)
+      socketService.messageRoom(`room${req.body.roomCode}`, "endRound", req.body)
+    } catch (error) {
+      next(error)
+    }
+  }
+  async endTurn(req, res, next) {
+    try {
+      socketService.messageRoom(`room${req.body.roomCode}`, "endTurn", req.body)
+    } catch (error) {
+      next(error)
+    }
+  }
+  async modal(req, res, next) {
+    try {
+      socketService.messageRoom(`room${req.body.roomCode}`, "modal", req.body)
     } catch (error) {
       next(error)
     }

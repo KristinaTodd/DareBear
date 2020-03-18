@@ -133,15 +133,14 @@ export default new Vuex.Store({
     endTurnView({ commit, dispatch }) {
       router.push({ name: "Dare" });
     },
-    async waiting({ commit, dispatch }, payload) {
-      try {
-        let res = await api.put("room/" + payload.id + "/waiting", payload)
-      } catch (error) {
-        console.error(error)
-      }
-    },
     waitingView({ commit, dispatch }) {
       router.push({ name: "Waiting" });
+    },
+    async modal({ commit, dispatch }, payload) {
+      let res = await api.put("room/" + payload.id + "/modal", payload)
+    },
+    modalView({ commit, dispatch }) {
+      $('#score-modal').modal('toggle')
     }
   },
   modules: {
