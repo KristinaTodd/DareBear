@@ -1,12 +1,12 @@
 <template>
-  <div class="main-font bg-primary">
+  <div v-if="room" class="main-font bg-primary">
     <div class="row text-center pt-4">
       <div class="col-1"></div>
       <div class="col-10 info-border text-info pt-2">
-        <h1>{{this.$store.state.room.activePlayer.playerName}}</h1>
+        <!-- <h1>{{this.$store.state.room.activePlayer[0].playerName}}</h1> -->
         <!-- <h1>Player Name</h1> -->
-        <!-- <img src="../assets/userbear5.png" class="img-width py-4" /> -->
-        <img :src="this.$store.state.room.activePlayer.imgUrl" alt width="5rem" height="5rem" />
+        <img src="../assets/userbear5.png" class="img-width py-4" />
+        <!-- <img :src="this.$store.state.room.activePlayer[0].imgUrl" alt width="5rem" height="5rem" /> -->
       </div>
       <div class="col-1"></div>
     </div>
@@ -14,13 +14,12 @@
       <div class="col-1"></div>
       <div class="col-10 info-border text-info pt-2 button-font">
         <span class="small-text">
-          Hey PlayerName
-          {{this.$store.state.room.activePlayer.playerName}}
+          Hey
+          <!-- {{this.$store.state.room.activePlayer[0].playerName}} -->
           this is your dare:
         </span>
         <br />
-        {{this.$store.state.room.activeDare.dare}}
-        <!-- spank Tim with a rowing oar! -->
+        {{this.$store.state.room.activeDare[0].dare}}
       </div>
       <div class="col-1"></div>
     </div>
@@ -98,12 +97,19 @@
 <script>
 export default {
   name: "Dare",
+  mounted() {
+    //this.$store.dispatch("getRoom", this.$store.state.room.roomCode);
+    // console.log("heres our room on this page", this.$store.state.room);
+  },
   computed: {
     room() {
       return this.$store.state.room;
     },
     me() {
       return this.$store.state.me;
+    },
+    activePlayer() {
+      return this.$store.state.room.activePlayer[0];
     }
   },
   data() {

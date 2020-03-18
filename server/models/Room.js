@@ -25,7 +25,7 @@ const Room = new Schema({
   roomCode: { type: Number, required: true },
   dares: [SubDare],
   players: [SubPlayer],
-  eligiblePlayers: [SubPlayer],
+  eligiblePlayers: [],
   activePlayer: [],
   activeDare: [],
   scored: [],

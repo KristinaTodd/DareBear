@@ -28,6 +28,7 @@ export default new Vuex.Store({
   actions: {
     async getRoom({ commit, dispatch }, roomCode) {
       try {
+
         let res = await api.get("room/" + roomCode)
         commit("setRoom", res.data)
       } catch (error) {
@@ -37,7 +38,7 @@ export default new Vuex.Store({
     async addPlayer({ commit, dispatch, state }, payload) {
       try {
         let res = await api.post("room/" + state.room.id + "/newPlayer", payload.players)
-        dispatch("getRoom", payload.roomCode)
+        //dispatch("getRoom", payload.roomCode)
         commit("setMe", payload.players[0].playerCode)
       } catch (error) {
         console.error(error)
@@ -46,7 +47,7 @@ export default new Vuex.Store({
     async createRoom({ commit, dispatch, state }, payload) {
       try {
         let res = await api.post("room/", payload);
-        dispatch("getRoom", res.data.roomCode);
+        commit("setRoom", res.data);
         commit("setMe", payload.playerCode)
         console.log("playerCode", state.me)
       } catch (error) {
@@ -63,7 +64,7 @@ export default new Vuex.Store({
     async getPlayersbyRoomId({ commit, dispatch }, roomCode) {
       try {
         let res = await api.get("room/" + roomCode + "/players")
-        dispatch("getRoom", roomCode)
+        //dispatch("getRoom", roomCode)
       } catch (error) {
         console.error(error)
       }
@@ -71,7 +72,10 @@ export default new Vuex.Store({
     async editDares({ commit, dispatch, state }, payload) {
       try {
         let res = await api.post("room/" + state.room.id + "/dares", payload.dares)
-        dispatch("getRoom", payload.roomCode)
+        if (state.room.dares.length == state.room.players.length) {
+          await dispatch("editActive", payload);
+        }
+        //dispatch("getRoom", payload.roomCode)
       } catch (error) {
         console.error(error)
       }
@@ -79,7 +83,8 @@ export default new Vuex.Store({
     async editActive({ commit, dispatch, state }, payload) {
       try {
         let res = await api.put("room/" + state.room.id + "/active", payload)
-        dispatch("getRoom", payload.roomCode)
+        //await dispatch("getRoom", payload.roomCode)
+        console.log("heres your active player", res)
       } catch (error) {
         console.error(error)
       }
@@ -97,7 +102,7 @@ export default new Vuex.Store({
     },
     async updateScored({ commit, dispatch }, payload) {
       let res = await api.put("room/" + payload.id + "/updatescored", payload)
-      dispatch("getRoom", payload.roomCode)
+      //dispatch("getRoom", payload.roomCode)
     },
 
     dareView({ commit, dispatch }) {
