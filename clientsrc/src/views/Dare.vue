@@ -3,10 +3,8 @@
     <div class="row text-center pt-4">
       <div class="col-1"></div>
       <div class="col-10 info-border text-info pt-2">
-        <!-- <h1>{{this.$store.state.room.activePlayer[0].playerName}}</h1> -->
-        <!-- <h1>Player Name</h1> -->
-        <img src="../assets/userbear5.png" class="img-width py-4" />
-        <!-- <img :src="this.$store.state.room.activePlayer[0].imgUrl" alt width="5rem" height="5rem" /> -->
+        <h1>{{this.$store.state.room.activePlayer[0].playerName}}</h1>
+        <img :src="require(`../${this.$store.state.room.activePlayer[0].imgUrl}`)" class="img-width" />
       </div>
       <div class="col-1"></div>
     </div>
@@ -15,7 +13,7 @@
       <div class="col-10 info-border text-info pt-2 button-font">
         <span class="small-text">
           Hey
-          <!-- {{this.$store.state.room.activePlayer[0].playerName}} -->
+          {{this.$store.state.room.activePlayer[0].playerName}}
           this is your dare:
         </span>
         <br />
@@ -29,7 +27,6 @@
         class="col-10 button-border text-danger button-font" @click="modal">Finished!</div>
       <div class="col-1"></div>
     </div>
-
     <div class="modal fade" id="score-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
       aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -107,10 +104,10 @@
     data() {
       return {
         player: {
-          playerId: this.$store.state.room.activePlayer.id,
+          playerId: this.$store.state.room.activePlayer[0].id,
           id: this.$store.state.room.id,
           roomCode: this.$store.state.room.roomCode,
-          playerCode: this.$store.state.me
+          playerCode: this.$store.state.room.activePlayer[0].playerCode
         }
       };
     },
