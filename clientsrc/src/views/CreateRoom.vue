@@ -86,12 +86,9 @@
     },
     methods: {
       createRoom() {
-        let playerCode = Math.floor(Math.random() * 100000000);
+        let playerCode = this.$store.state.me
         this.player.playerCode = playerCode;
-        this.newRoom.playerCode = playerCode;
         this.newRoom.players.push(this.player);
-        let localPlayerCode = { playerCode: this.player.playerCode }
-        window.localStorage.setItem("localPlayerCode", JSON.stringify(localPlayerCode))
         this.$store.dispatch("createRoom", this.newRoom);
         this.$store.dispatch("joinRoom", `room${this.newRoom.roomCode}`);
         this.$router.push({

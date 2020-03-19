@@ -39,7 +39,6 @@ export default new Vuex.Store({
       try {
         let res = await api.post("room/" + state.room.id + "/newPlayer", payload.players)
         dispatch("getRoom", payload.roomCode)
-        commit("setMe", payload.players[0].playerCode)
       } catch (error) {
         console.error(error)
       }
@@ -48,7 +47,6 @@ export default new Vuex.Store({
       try {
         let res = await api.post("room/", payload);
         commit("setRoom", res.data);
-        commit("setMe", payload.playerCode)
         console.log("playerCode", state.me)
       } catch (error) {
         console.error(error);

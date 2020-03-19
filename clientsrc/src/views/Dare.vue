@@ -23,8 +23,8 @@
     </div>
     <div class="row text-center pt-5">
       <div class="col-1"></div>
-      <div v-show="this.me.localPlayerCode == this.$store.state.room.activePlayer[0].playerCode"
-        class="col-10 button-border text-danger button-font" @click="modal">Finished!</div>
+      <div v-show="localPlayerCode == activePlayer.playerCode" class="col-10 button-border text-danger button-font"
+        @click="modal">Finished!</div>
       <div class="col-1"></div>
     </div>
     <div class="modal fade" id="score-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -94,8 +94,8 @@
         return this.$store.state.room;
       },
       localPlayerCode() {
-        let me = JSON.parse(window.localStorage.getItem("localPlayerCode"))
-        return me
+        return this.$store.state.me
+
       },
       activePlayer() {
         return this.$store.state.room.activePlayer[0];
