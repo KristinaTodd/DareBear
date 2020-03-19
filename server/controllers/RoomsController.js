@@ -90,6 +90,7 @@ export class RoomsController extends BaseController {
       // @ts-ignore
       socketService.messageRoom(`room${data.roomCode}`, "updateRoom", data)
       socketService.messageRoom(`room${data.roomCode}`, "startRound", data)
+      // await this.getRoomByRoomCode(data.roomCode)
       res.send(data);
     } catch (error) {
       next(error);
@@ -132,7 +133,7 @@ export class RoomsController extends BaseController {
   async createDare(req, res, next) {
     try {
       let data = await roomService.createDare(req.params.id, req.body)
-      socketService.messageRoom(`room${req.body.roomCode}`, "updateRoom", data)
+      socketService.messageRoom(`room${data.roomCode}`, "updateRoom", data)
       if (data) {
         res.send(data)
       }

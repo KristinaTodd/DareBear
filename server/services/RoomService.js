@@ -117,10 +117,9 @@ class RoomService {
       data.eligiblePlayers = data.players;
     } else {
       // @ts-ignore
-      data.eligiblePlayers.filter(p => {
+      data.eligiblePlayers.filter(p =>
         // @ts-ignore
-        p._id.equals(data.activePlayer[0]._id)
-      })
+        p._id.equals(data.activePlayer[0]._id))
     }
     await data.save()
     return data
@@ -130,7 +129,6 @@ class RoomService {
     let data = await dbContext.Rooms.findOne({ _id: id })
     // @ts-ignore
     data.activePlayer[0] = data.eligiblePlayers[Math.floor(Math.random() * (data.eligiblePlayers.length))]
-    //data.activePlayer[0] = data.eligiblePlayers[0]
     //FIXME make these strings not arrays that ref the playerId/dareId
     // @ts-ignore
     data.activeDare[0] = data.dares[Math.floor(Math.random() * (data.dares.length))]
@@ -140,8 +138,8 @@ class RoomService {
     // @ts-ignore
 
     data.dares.splice(index, 1)
-    await data.save()
-    //await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
+    // await data.save()
+    // await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
     return await this.editEligible(id, update, data)
   }
   async updateScored(id, playerCode) {
