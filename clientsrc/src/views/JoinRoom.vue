@@ -49,7 +49,7 @@
       return {
         newPlayer: {
           imgUrl: "",
-          playerCode: `${Math.floor(Math.random() * 100000000)}`
+          playerCode: this.$store.state.me
         },
         newRoom: {
           players: []
@@ -70,8 +70,6 @@
         await this.$store.dispatch("getRoom", payload.roomCode);
         payload.players = this.players;
         payload.players.push(this.newPlayer);
-        let localPlayerCode = { playerCode: this.newPlayer.playerCode }
-        window.localStorage.setItem("localPlayerCode", JSON.stringify(localPlayerCode))
         this.$store.dispatch("addPlayer", payload);
         this.$router.push({ name: "WaitingForPlayers" });
       }
