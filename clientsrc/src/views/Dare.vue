@@ -21,13 +21,12 @@
       </div>
       <div class="col-1"></div>
     </div>
-    <div class="row text-center pt-5"
-      v-show="this.$store.state.me == this.$store.state.room.activePlayer[0].playerCode">
+    <div class="row text-center pt-5">
       <div class="col-1"></div>
-      <div class="col-10 button-border text-danger button-font" @click="modal">Finished!</div>
+      <div v-show="this.me.localPlayerCode == this.$store.state.room.activePlayer[0].playerCode"
+        class="col-10 button-border text-danger button-font" @click="modal">Finished!</div>
       <div class="col-1"></div>
     </div>
-
     <div class="modal fade" id="score-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
       aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -94,8 +93,9 @@
       room() {
         return this.$store.state.room;
       },
-      me() {
-        return this.$store.state.me;
+      localPlayerCode() {
+        let me = JSON.parse(window.localStorage.getItem("localPlayerCode"))
+        return me
       },
       activePlayer() {
         return this.$store.state.room.activePlayer[0];

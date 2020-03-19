@@ -70,6 +70,8 @@
         await this.$store.dispatch("getRoom", payload.roomCode);
         payload.players = this.players;
         payload.players.push(this.newPlayer);
+        let localPlayerCode = { playerCode: this.newPlayer.playerCode }
+        window.localStorage.setItem("localPlayerCode", JSON.stringify(localPlayerCode))
         this.$store.dispatch("addPlayer", payload);
         this.$router.push({ name: "WaitingForPlayers" });
       }
