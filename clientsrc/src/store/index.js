@@ -38,7 +38,7 @@ export default new Vuex.Store({
     async addPlayer({ commit, dispatch, state }, payload) {
       try {
         let res = await api.post("room/" + state.room.id + "/newPlayer", payload.players)
-        //dispatch("getRoom", payload.roomCode)
+        dispatch("getRoom", payload.roomCode)
         commit("setMe", payload.players[0].playerCode)
       } catch (error) {
         console.error(error)
