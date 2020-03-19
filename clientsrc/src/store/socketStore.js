@@ -43,9 +43,7 @@ export const socketStore = {
       socket.on("modal", room => {
         dispatch("modalView")
       });
-
       socket.on("updateRoom", room => {
-        debugger
         commit('setRoom', room)
       })
     },

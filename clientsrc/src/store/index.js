@@ -75,7 +75,7 @@ export default new Vuex.Store({
         if (state.room.dares.length == state.room.players.length) {
           await dispatch("editActive", payload);
         }
-        //dispatch("getRoom", payload.roomCode)
+        // dispatch("getRoom", payload.roomCode)
       } catch (error) {
         console.error(error)
       }
