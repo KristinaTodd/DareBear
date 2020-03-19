@@ -30,7 +30,7 @@ export class RoomsController extends BaseController {
   async getRoomByRoomCode(req, res, next) {
     try {
       let data = await roomService.getRoomByRoomCode(req.params)
-      //socketService.messageRoom(`room${req.params.roomCode}`, "getRoom", data)
+      socketService.messageRoom(`room${req.params.roomCode}`, "getRoom", data)
       res.send(data)
     } catch (error) {
       next(error)
