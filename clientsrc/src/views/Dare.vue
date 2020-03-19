@@ -105,7 +105,7 @@
       return {
         player: {
           playerId: this.$store.state.room.activePlayer[0].id,
-          id: this.$store.state.room.id,
+          id: this.$store.state.room._id,
           roomCode: this.$store.state.room.roomCode,
           playerCode: this.$store.state.room.activePlayer[0].playerCode
         }
@@ -113,7 +113,7 @@
     },
     methods: {
       async modal() {
-        this.$store.dispatch("modal");
+        this.$store.dispatch("modal", this.$store.state.room);
       },
       async score(num) {
         this.player.score = num;
