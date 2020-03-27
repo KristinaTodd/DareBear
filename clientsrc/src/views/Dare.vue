@@ -124,14 +124,13 @@ export default {
   },
   methods: {
     async modal() {
-      this.$store.dispatch("getRoom", this.$store.state.room.roomCode);
       this.$store.dispatch("modal", this.$store.state.room);
       this.$store.dispatch("waitingView");
     },
     async score(num) {
       //debugger;
-      this.player.score = num;
-      console.log("Score is", this.player.score);
+      this.player.playerScore = num;
+      console.log("Score is", this.player.playerScore);
       let payload = this.player;
       await this.$store.dispatch("scorePlayer", this.player);
       // await this.$store.dispatch("updateScored", this.player);

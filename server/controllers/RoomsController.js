@@ -79,6 +79,7 @@ export class RoomsController extends BaseController {
   async editEligible(req, res, next) {
     try {
       let data = await roomService.editEligible(req.params.id, req.body)
+      socketService.messageRoom(`room${data.roomCode}`, "updateRoom", data)
       res.send(data);
     } catch (error) {
       next(error);
