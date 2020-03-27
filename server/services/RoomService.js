@@ -112,7 +112,7 @@ class RoomService {
 
   }
   // @ts-ignore
-  async editEligible(id, update, data) {//NOTE always call after editActive
+  async editEligible(id, update, data) {
     data = data || await dbContext.Rooms.findOne({ _id: id })
     // @ts-ignore
     if (data.eligiblePlayers.length == 0) {
