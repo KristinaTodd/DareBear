@@ -124,6 +124,7 @@ export default {
   },
   methods: {
     async modal() {
+      this.$store.dispatch("getRoom", this.$store.state.room.roomCode);
       this.$store.dispatch("modal", this.$store.state.room);
       this.$store.dispatch("waitingView");
     },
