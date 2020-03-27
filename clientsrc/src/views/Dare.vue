@@ -125,13 +125,15 @@ export default {
   methods: {
     async modal() {
       this.$store.dispatch("modal", this.$store.state.room);
+      this.$store.dispatch("waitingView");
     },
     async score(num) {
+      //debugger;
       this.player.score = num;
       console.log("Score is", this.player.score);
       let payload = this.player;
       await this.$store.dispatch("scorePlayer", this.player);
-      await this.$store.dispatch("updateScored", this.player);
+      // await this.$store.dispatch("updateScored", this.player);
       if (
         this.$store.state.room.scored.length ==
           this.$store.state.room.players.length - 1 &&
@@ -155,6 +157,7 @@ export default {
         this.$store.dispatch("endTurn", payload);
         this.$store.dispatch("editActive", payload);
       } else {
+        await this.$store.dispatch("updateScored", payload);
         this.$store.dispatch("waitingView");
       }
     }

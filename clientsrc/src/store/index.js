@@ -136,14 +136,16 @@ export default new Vuex.Store({
     endTurnView({ commit, dispatch }) {
       router.push({ name: "Dare" });
     },
-    waitingView({ commit, dispatch }) {
+    waitingView({ commit, dispatch, state }) {
       router.push({ name: "Waiting" });
     },
     async modal({ commit, dispatch }, payload) {
       let res = await api.put("room/" + payload.id + "/modal", payload)
     },
-    modalView({ commit, dispatch }) {
-      $('#score-modal').modal('toggle')
+    modalView({ commit, dispatch, state }) {
+      if (state.me != state.room.activePlayer.playerCode) {
+        $('#score-modal').modal('toggle')
+      }
     }
   },
   modules: {
