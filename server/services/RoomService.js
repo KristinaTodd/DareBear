@@ -113,7 +113,7 @@ class RoomService {
   }
   // @ts-ignore
   async editEligible(id, update, data) {
-    data = data || await dbContext.Rooms.findOne({ _id: id })
+    data = await dbContext.Rooms.findOne({ _id: id })
     // @ts-ignore
     if (data.eligiblePlayers.length == 0) {
       // @ts-ignore
@@ -121,13 +121,9 @@ class RoomService {
       //@ts-ignore
       data.eligiblePlayers = data.players;
     } else {
-      // @ts-ignore
-      data.eligiblePlayers.filter(p =>
-        // @ts-ignore
-        p._id.equals(data.activePlayer[0]._id))
+      data = await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $pull: { eligiblePlayers: { _id: data.activePlayer[0].playerId } } }, { new: true })
     }
-    await data.save()
-    return data
+    return await data.save()
   }
   // @ts-ignore
   async editActive(id, update) {
@@ -144,8 +140,9 @@ class RoomService {
 
     data.dares.splice(index, 1)
     // await data.save()
-    // await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
-    return await this.editEligible(id, update, data)
+    return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
+
+    //return await this.editEligible(id, update, data)
   }
   async updateScored(id, playerCode) {
     let data = await dbContext.Rooms.findOne({ _id: id })

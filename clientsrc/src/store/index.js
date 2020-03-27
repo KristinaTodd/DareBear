@@ -72,10 +72,22 @@ export default new Vuex.Store({
         let res = await api.post("room/" + state.room.id + "/dares", payload.dares)
         if (state.room.dares.length == state.room.players.length) {
           await dispatch("editActive", payload);
+          console.log("checking editdares", state.room)
+          await dispatch("editEligible", payload);
+          console.log("once more, with feeling", state.room)
         }
         // dispatch("getRoom", payload.roomCode)
       } catch (error) {
         console.error(error)
+      }
+    },
+
+
+    async editEligible({ commit, dispatch, state }, payload) {
+      try {
+        let res = await api.put("room/" + state.room.id + "eligiblePlayers", payload)
+      } catch (e) {
+        console.error(e)
       }
     },
     async editActive({ commit, dispatch, state }, payload) {
