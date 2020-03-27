@@ -69,31 +69,36 @@ class RoomService {
 
   async editPlayerScore(id, playerId, update) {
     let data = await dbContext.Rooms.findOne({ _id: id })
-    // @ts-ignore
-    let tempArr = data.players
-    //take the player that scored out of the original array
-    data.players.filter(p => { p.id != playerId })
-    //take every other player out of this array
-    tempArr.filter(p => { p.id == playerId })
-    //this is the player that scored
-    let found = tempArr[0]
-    //update that player's score
-    found.playerScore = update.playerScore
-    //now find out where to put it back
-    for (let i = 0; i < data.players.length; i++) {
-      //starting from 0, is this player's score less than the player who scored?
-      if (data.players[i] < found.playerScore) {
-        //if so, put the player who scored here, pushing every other player down. 
-        data.players.splice(i, 0, found)
-        //exit the loop by making i greater than its constraint
-        i = data.players.length
-        //in the event that this score is the lowest, put it at the end
-      } else if (i == data.players.length - 1) {
-        data.players.push(found)
-      }
-    }
+    data.activePlayer.playerScore + update.playerScore
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
   }
+  // async editPlayerScore(id, playerId, update) {
+  //   let data = await dbContext.Rooms.findOne({ _id: id })
+  //   // @ts-ignore
+  //   let tempArr = data.players
+  //   //take the player that scored out of the original array
+  //   data.players.filter(p => { p.id != playerId })
+  //   //take every other player out of this array
+  //   tempArr.filter(p => { p.id == playerId })
+  //   //this is the player that scored
+  //   let found = tempArr[0]
+  //   //update that player's score
+  //   found.playerScore = update.playerScore
+  //   //now find out where to put it back
+  //   for (let i = 0; i < data.players.length; i++) {
+  //     //starting from 0, is this player's score less than the player who scored?
+  //     if (data.players[i] < found.playerScore) {
+  //       //if so, put the player who scored here, pushing every other player down. 
+  //       data.players.splice(i, 0, found)
+  //       //exit the loop by making i greater than its constraint
+  //       i = data.players.length
+  //       //in the event that this score is the lowest, put it at the end
+  //     } else if (i == data.players.length - 1) {
+  //       data.players.push(found)
+  //     }
+  //   }
+  //   return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
+  // }
   async deletePlayer(id, playerId, update) {
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $pull: { players: { _id: playerId } } }, { new: true })
   }
