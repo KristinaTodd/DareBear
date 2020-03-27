@@ -118,7 +118,8 @@ export default {
         playerId: this.$store.state.room.activePlayer[0]._id,
         id: this.$store.state.room._id,
         roomCode: this.$store.state.room.roomCode,
-        playerCode: this.$store.state.room.activePlayer[0].playerCode
+        playerCode: this.$store.state.room.activePlayer[0].playerCode,
+        me: this.$store.state.me
       }
     };
   },
@@ -128,12 +129,11 @@ export default {
       this.$store.dispatch("waitingView");
     },
     async score(num) {
-      //debugger;
       this.player.playerScore = num;
       console.log("Score is", this.player.playerScore);
       let payload = this.player;
       await this.$store.dispatch("scorePlayer", this.player);
-      // await this.$store.dispatch("updateScored", this.player);
+      this.$store.dispatch("modalView", this.$store.state.room);
       if (
         this.$store.state.room.scored.length ==
           this.$store.state.room.players.length - 1 &&
@@ -153,6 +153,7 @@ export default {
         this.$store.state.room.scored.length ==
         this.$store.state.room.players.length - 1
       ) {
+        debugger;
         await this.$store.dispatch("updateScored", payload);
         this.$store.dispatch("endTurn", payload);
         this.$store.dispatch("editActive", payload);

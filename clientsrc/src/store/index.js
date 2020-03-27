@@ -85,7 +85,7 @@ export default new Vuex.Store({
 
     async editEligible({ commit, dispatch, state }, payload) {
       try {
-        let res = await api.put("room/" + state.room.id + "eligiblePlayers", payload)
+        let res = await api.put("room/" + state.room.id + "/eligiblePlayers", payload)
       } catch (e) {
         console.error(e)
       }

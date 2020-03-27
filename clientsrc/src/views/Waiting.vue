@@ -11,6 +11,24 @@
       <div class="col-1"></div>
     </div>
     <div class="row">
+      <div class="col-12">
+        <div class="row mt-2 mb-2">
+          <div class="col-1"></div>
+          <div class="col-3">
+            <img class="imgSize" :src="require(`../${activePlayerData.imgUrl}`)" alt />
+          </div>
+          <div class="col-7 info-border">
+            <h5 class="text-info card-padding">
+              {{activePlayerData.playerName}}
+              <span
+                class="float-right"
+              >Score: {{activePlayerData.playerScore}}</span>
+            </h5>
+            <!-- <h5 class="text-info">Score: {{playerData.playerScore}}</h5> -->
+          </div>
+          <div class="col-1"></div>
+        </div>
+      </div>
       <player v-for="(playerObj) in scored" :key="playerObj._id" :playerData="playerObj" />
     </div>
   </div>
@@ -26,6 +44,9 @@ export default {
   computed: {
     scored() {
       return this.$store.state.room.scored;
+    },
+    activePlayerData() {
+      return this.$store.state.room.activePlayer[0];
     }
   }
 };
@@ -34,5 +55,9 @@ export default {
 <style>
 .main-font {
   font-family: "Gugi", cursive;
+}
+.imgSize {
+  height: 3rem;
+  width: 3rem;
 }
 </style>

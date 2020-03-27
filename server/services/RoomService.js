@@ -69,8 +69,14 @@ class RoomService {
 
   async editPlayerScore(id, playerId, update) {
     let data = await dbContext.Rooms.findOne({ _id: id })
-    data.activePlayer.playerScore + update.playerScore
-    return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
+    let tmpPlayer = data.players.find(p => p._id == data.activePlayer[0]._id)
+
+    tmpPlayer.playerScore += update.playerScore;
+
+    data.markModified("players")
+    await data.save();
+    return data
+    //return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
   }
   // async editPlayerScore(id, playerId, update) {
   //   let data = await dbContext.Rooms.findOne({ _id: id })
@@ -121,7 +127,10 @@ class RoomService {
       //@ts-ignore
       data.eligiblePlayers = data.players;
     } else {
-      data = await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $pull: { eligiblePlayers: { _id: data.activePlayer[0].playerId } } }, { new: true })
+      //data = await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $pull: { eligiblePlayers: { _id: data.activePlayer[0].id } } }, { new: true })
+
+      data.eligiblePlayers.pull(data.activePlayer[0]);
+
     }
     return await data.save()
   }
