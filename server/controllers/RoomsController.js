@@ -152,7 +152,7 @@ export class RoomsController extends BaseController {
   }
   async updateScored(req, res, next) {
     try {
-      let data = await roomService.updateScored(req.params.id, req.body.playerCode)
+      let data = await roomService.updateScored(req.params.id, req.body.me)
       socketService.messageRoom(`room${data.roomCode}`, "updateRoom", data)
       res.send(data)
     } catch (error) {
