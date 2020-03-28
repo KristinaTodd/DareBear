@@ -20,9 +20,7 @@
           <div class="col-7 info-border">
             <h5 class="text-info card-padding">
               {{activePlayerData.playerName}}
-              <span
-                class="float-right"
-              >Score: {{activePlayerData.playerScore}}</span>
+              <span class="float-right">Score: {{activePlayerData.playerScore}}</span>
             </h5>
             <!-- <h5 class="text-info">Score: {{playerData.playerScore}}</h5> -->
           </div>
@@ -35,29 +33,60 @@
 </template>
 
 <script>
-import Player from "../components/player";
-export default {
-  name: "Waiting",
-  components: {
-    Player
-  },
-  computed: {
-    scored() {
-      return this.$store.state.room.scored;
+  import Player from "../components/player";
+  export default {
+    name: "Waiting",
+    mounted() {
+      let payload = {
+        playerId: this.$store.state.room.activePlayer[0]._id,
+        id: this.$store.state.room._id,
+        roomCode: this.$store.state.room.roomCode,
+        playerCode: this.$store.state.room.activePlayer[0].playerCode,
+        me: this.$store.state.me
+      }
+
+      if (
+        this.$store.state.room.scored.length ==
+        this.$store.state.room.players.length - 1 &&
+        this.$store.state.room.roundCount ==
+        this.$store.state.room.roundTotal &&
+        this.$store.state.room.eligiblePlayers.length == 0
+      ) {
+        this.$store.dispatch("endGame", payload);
+      } else if (
+        this.$store.state.room.scored.length ==
+        this.$store.state.room.players.length - 1 &&
+        this.$store.state.room.eligiblePlayers.length == 0
+      ) {
+        this.$store.dispatch("endRound", payload);
+      } else if (
+        this.$store.state.room.scored.length ==
+        this.$store.state.room.players.length - 1
+      ) {
+        this.$store.dispatch("mountedMethod", payload)
+      }
     },
-    activePlayerData() {
-      return this.$store.state.room.activePlayer[0];
+    components: {
+      Player
+    },
+    computed: {
+      scored() {
+        return this.$store.state.room.scored;
+      },
+      activePlayerData() {
+        return this.$store.state.room.activePlayer[0];
+      }
     }
-  }
-};
+  };
 </script>
 
 <style>
-.main-font {
-  font-family: "Gugi", cursive;
-}
-.imgSize {
-  height: 3rem;
-  width: 3rem;
-}
+  .main-font {
+    font-family: "Gugi", cursive;
+  }
+
+  .imgSize {
+    height: 3rem;
+    width: 3rem;
+  }
 </style>
