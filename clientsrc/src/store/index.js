@@ -125,8 +125,20 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+    //NOTE action with promise
+    // load({dispatch, commit}, payload) {
+    //   return new Promise(async (res, rej) => {
+    //     try{
+    //    let result = await axios.get("/api/customers")
+    //        commit("setCustomers", result.data);
+    //         res();
+    //     }catch(err){rej()};
+    //   });
+    // },
     async endRound({ commit, dispatch }, payload) {
       try {
+        debugger
+        await dispatch("editEligible", payload);
         let res = await api.put("room/" + payload.id + '/endround', payload)
       } catch (error) {
         console.error(error)
@@ -145,7 +157,8 @@ export default new Vuex.Store({
     endRoundView({ commit, dispatch }) {
       router.push({ name: "Round" });
     },
-    endTurnView({ commit, dispatch }) {
+    async endTurnView({ commit, dispatch, state }) {
+      await dispatch("getRoom", state.room.roomCode);
       router.push({ name: "Dare" });
     },
     waitingView({ commit, dispatch, state }) {
@@ -158,6 +171,11 @@ export default new Vuex.Store({
       if (state.me != state.room.activePlayer.playerCode) {
         $('#score-modal').modal('toggle')
       }
+    },
+    async mountedMethod({ commit, dispatch }, payload) {
+      await dispatch("editActive", payload)
+      await dispatch("editEligible", payload)
+      await dispatch("endTurn", payload)
     }
   },
   modules: {

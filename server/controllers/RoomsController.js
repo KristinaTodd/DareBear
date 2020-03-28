@@ -169,14 +169,18 @@ export class RoomsController extends BaseController {
   async endRound(req, res, next) {
     try {
       let data = await roomService.editEligible(req.params.id, req.body)
+      let data2 = await roomService.clearScored(req.params.id, req.body)
       socketService.messageRoom(`room${req.body.roomCode}`, "endRound", req.body)
+      res.send("worked")
     } catch (error) {
       next(error)
     }
   }
   async endTurn(req, res, next) {
     try {
+      let data = await roomService.clearScored(req.params.id, req.body)
       socketService.messageRoom(`room${req.body.roomCode}`, "endTurn", req.body)
+      res.send("worked")
     } catch (error) {
       next(error)
     }

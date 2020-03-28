@@ -166,6 +166,11 @@ class RoomService {
     }
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
   }
+  async clearScored(id) {
+    let data = await dbContext.Rooms.findOne({ _id: id })
+    data.scored = []
+    return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
+  }
 }
 
 export const roomService = new RoomService()
