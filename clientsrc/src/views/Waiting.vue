@@ -12,12 +12,12 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <div class="row mt-2 mb-2">
+        <div class="row mt-2 mb-2 justify-content-center">
           <div class="col-1"></div>
           <div class="col-3">
             <img class="imgSize" :src="require(`../${activePlayerData.imgUrl}`)" alt />
           </div>
-          <div class="col-7 info-border">
+          <div class="col-7 info-border ">
             <h5 class="text-info card-padding">
               {{activePlayerData.playerName}}
               <span class="float-right">Score: {{activePlayerData.playerScore}}</span>
