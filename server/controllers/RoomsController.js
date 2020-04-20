@@ -70,6 +70,7 @@ export class RoomsController extends BaseController {
   }
   async deleteRoom(req, res, next) {
     try {
+      // @ts-ignore
       let data = await roomService.deleteRoom(req.params.id)
       res.send("deleted");
     } catch (error) {
@@ -90,6 +91,7 @@ export class RoomsController extends BaseController {
       let data = await roomService.editActive(req.params.id, req.body)
       // @ts-ignore
       socketService.messageRoom(`room${data.roomCode}`, "updateRoom", data)
+      // @ts-ignore
       socketService.messageRoom(`room${data.roomCode}`, "startRound", data)
       // await this.getRoomByRoomCode(data.roomCode)
       res.send(data);
@@ -134,6 +136,7 @@ export class RoomsController extends BaseController {
   async createDare(req, res, next) {
     try {
       let data = await roomService.createDare(req.params.id, req.body)
+      // @ts-ignore
       socketService.messageRoom(`room${data.roomCode}`, "updateRoom", data)
       if (data) {
         res.send(data)
@@ -153,12 +156,14 @@ export class RoomsController extends BaseController {
   async updateScored(req, res, next) {
     try {
       let data = await roomService.updateScored(req.params.id, req.body.me)
+      // @ts-ignore
       socketService.messageRoom(`room${data.roomCode}`, "updateRoom", data)
       res.send(data)
     } catch (error) {
       next(error)
     }
   }
+  // @ts-ignore
   async endGame(req, res, next) {
     try {
       socketService.messageRoom(`room${req.body.roomCode}`, "endGame", req.body)
@@ -168,7 +173,9 @@ export class RoomsController extends BaseController {
   }
   async endRound(req, res, next) {
     try {
+      // @ts-ignore
       let data = await roomService.editEligible(req.params.id, req.body)
+      // @ts-ignore
       let data2 = await roomService.clearScored(req.params.id, req.body)
       socketService.messageRoom(`room${req.body.roomCode}`, "endRound", req.body)
       res.send("worked")
@@ -178,6 +185,7 @@ export class RoomsController extends BaseController {
   }
   async endTurn(req, res, next) {
     try {
+      // @ts-ignore
       let data = await roomService.clearScored(req.params.id, req.body)
       socketService.messageRoom(`room${req.body.roomCode}`, "endTurn", req.body)
       res.send("worked")
@@ -185,9 +193,11 @@ export class RoomsController extends BaseController {
       next(error)
     }
   }
+  // @ts-ignore
   async modal(req, res, next) {
     try {
       socketService.messageRoom(`room${req.body.roomCode}`, "modal", req.body)
+      res.send("modaled")
     } catch (error) {
       next(error)
     }

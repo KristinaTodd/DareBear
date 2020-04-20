@@ -137,7 +137,6 @@ export default new Vuex.Store({
     // },
     async endRound({ commit, dispatch }, payload) {
       try {
-        debugger
         await dispatch("editEligible", payload);
         let res = await api.put("room/" + payload.id + '/endround', payload)
       } catch (error) {
@@ -159,10 +158,10 @@ export default new Vuex.Store({
     },
     async endTurnView({ commit, dispatch, state }) {
       await dispatch("getRoom", state.room.roomCode);
-      router.push({ name: "Dare" });
+      router.push({ name: "Dare" }).catch(error => { });
     },
     waitingView({ commit, dispatch, state }) {
-      router.push({ name: "Waiting" });
+      router.push({ name: "Waiting" }).catch(error => { });
     },
     async modal({ commit, dispatch }, payload) {
       let res = await api.put("room/" + payload.id + "/modal", payload)
