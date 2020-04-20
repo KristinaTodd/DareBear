@@ -128,13 +128,13 @@ export default {
       this.$store.dispatch("modal", this.$store.state.room);
       this.$store.dispatch("waitingView");
     },
-    async score(num) {
+    score(num) {
       this.player.playerScore = num;
       console.log("Score is", this.player.playerScore);
       let payload = this.player;
-      await this.$store.dispatch("scorePlayer", this.player);
-      await this.$store.dispatch("updateScored", payload);
-      await this.$store.dispatch("modalView", payload);
+      this.$store.dispatch("scorePlayer", this.player);
+      this.$store.dispatch("updateScored", payload);
+      this.$store.dispatch("modalView", payload);
       setTimeout(this.$store.dispatch("waitingView"), 3000);
     }
   }
