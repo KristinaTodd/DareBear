@@ -30,6 +30,9 @@ export default {
     players() {
       return this.$store.state.room.players;
     }
+  },
+  mounted() {
+    this.$store.state.room.activePlayer.push({ x: 1 });
   }
 };
 </script>

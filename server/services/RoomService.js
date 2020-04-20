@@ -23,6 +23,7 @@ class RoomService {
     if (!data) {
       throw new BadRequest("Invalid ID")
     }
+    // @ts-ignore
     return data.players
   }
 
@@ -53,6 +54,7 @@ class RoomService {
 
   async createDare(id, body) {
     let data = await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $addToSet: { dares: body } }, { new: true })
+    // @ts-ignore
     if (!data.eligiblePlayers.length) {
       data = await this.resetEligible(id)
     }
@@ -62,13 +64,16 @@ class RoomService {
   async resetEligible(id) {
     let data = await dbContext.Rooms.findOne({ _id: id })
 
+    // @ts-ignore
     data.eligiblePlayers = data.players
 
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
   }
 
+  // @ts-ignore
   async editPlayerScore(id, playerId, update) {
     let data = await dbContext.Rooms.findOne({ _id: id })
+    // @ts-ignore
     let tmpPlayer = data.players.find(p => p._id == data.activePlayer[0]._id)
 
     tmpPlayer.playerScore += update.playerScore;
@@ -105,6 +110,7 @@ class RoomService {
   //   }
   //   return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
   // }
+  // @ts-ignore
   async deletePlayer(id, playerId, update) {
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $pull: { players: { _id: playerId } } }, { new: true })
   }
@@ -117,6 +123,7 @@ class RoomService {
     }
 
   }
+  // @ts-ignore
   // @ts-ignore
   async editEligible(id, update, data) {
     data = await dbContext.Rooms.findOne({ _id: id })
@@ -134,6 +141,7 @@ class RoomService {
     }
     return await data.save()
   }
+  // @ts-ignore
   // @ts-ignore
   async editActive(id, update) {
     let data = await dbContext.Rooms.findOne({ _id: id })
@@ -155,19 +163,24 @@ class RoomService {
   }
   async updateScored(id, playerCode) {
     let data = await dbContext.Rooms.findOne({ _id: id })
+    // @ts-ignore
     let tempArr = data.players
+    // @ts-ignore
     if ((data.players.length - 1) == data.scored.length) {
+      // @ts-ignore
       data.scored = []
     } else {
       tempArr = tempArr.filter(p =>
         p.playerCode == playerCode
       )
+      // @ts-ignore
       data.scored = data.scored.concat(tempArr)
     }
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
   }
   async clearScored(id) {
     let data = await dbContext.Rooms.findOne({ _id: id })
+    // @ts-ignore
     data.scored = []
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
   }
