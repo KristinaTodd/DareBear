@@ -91,6 +91,9 @@ export default {
       payload.dares.push(this.newDare);
       this.$store.dispatch("editDares", payload);
     }
+  },
+  mounted() {
+    this.$store.dispatch("editEligible", this.$store.state.room);
   }
 };
 </script>
