@@ -2,6 +2,7 @@ import { dbContext } from "../db/DbContext";
 import { BadRequest } from "../utils/Errors";
 
 class RoomService {
+
   async getRoomByRoomCode(params) {
     let data = await dbContext.Rooms.findOne({ roomCode: params.roomCode })
     if (!data) {
@@ -66,6 +67,14 @@ class RoomService {
 
     // @ts-ignore
     data.eligiblePlayers = data.players
+
+    return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
+  }
+  async clearEligible(id, body) {
+    let data = await dbContext.Rooms.findOne({ _id: id })
+
+    // @ts-ignore
+    data.eligiblePlayers = []
 
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
   }

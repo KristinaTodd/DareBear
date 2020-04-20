@@ -125,6 +125,27 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+    async pusher({ commit, dispatch, state }, payload) {
+      if (
+        await state.room.scored.length ==
+        await state.room.players.length - 1 &&
+        await state.room.roundCount == await state.room.roundTotal &&
+        await state.room.eligiblePlayers.length == 0
+      ) {
+        dispatch("endGame", payload);
+      } else if (
+        await state.room.scored.length ==
+        await state.room.players.length - 1 &&
+        await state.room.eligiblePlayers.length == 0
+      ) {
+        dispatch("endRound", payload);
+      } else if (
+        await state.room.scored.length ==
+        await state.room.players.length - 1
+      ) {
+        dispatch("mountedMethod", payload);
+      }
+    },
     //NOTE action with promise
     // load({dispatch, commit}, payload) {
     //   return new Promise(async (res, rej) => {
@@ -175,6 +196,13 @@ export default new Vuex.Store({
       await dispatch("editActive", payload)
       await dispatch("editEligible", payload)
       await dispatch("endTurn", payload)
+    },
+    async clearEligible({ commit, dispatch, state }, payload) {
+      try {
+        let res = await api.put("room/" + state.room.id + "/clearEligible", payload)
+      } catch (e) {
+        console.error(e)
+      }
     }
   },
   modules: {

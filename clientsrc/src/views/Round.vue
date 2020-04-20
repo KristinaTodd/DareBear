@@ -20,13 +20,8 @@
       <div class="col-10 text-info info-border text-center">
         <span class="text-info tex-center">Be kind! You could end up with your own dare!</span>
         <form @submit.prevent="submitDare">
-          <input
-            type="text"
-            class="bg-transparent blue-border text-danger input-font my-2 mr-1"
-            placeholder="Enter Your Dare..."
-            v-model="newDare.dare"
-            required
-          />
+          <input type="text" class="bg-transparent blue-border text-danger input-font my-2 mr-1"
+            placeholder="Enter Your Dare..." v-model="newDare.dare" required />
           <button type="submit" class="bg-transparent blue-border text-danger input-font my-2">+</button>
         </form>
       </div>
@@ -56,57 +51,57 @@
   </div>
 </template>
 <script>
-import player from "../components/player.vue";
-export default {
-  name: "Round",
-  // mounted() {
-  //   this.$store.dispatch("getRoom", this.$store.state.room.roomCode);
-  //},
-  components: {
-    player
-  },
-  data() {
-    return {
-      newDare: {
-        playerCode: this.$store.state.me
-      },
-      newRoom: {
-        dares: [],
-        roomCode: this.$store.state.room.roomCode
-      }
-    };
-  },
-  computed: {
-    room() {
-      return this.$store.state.room;
+  import player from "../components/player.vue";
+  export default {
+    name: "Round",
+    // mounted() {
+    //   this.$store.dispatch("getRoom", this.$store.state.room.roomCode);
+    //},
+    components: {
+      player
     },
-    players() {
-      return this.$store.state.room.players;
+    data() {
+      return {
+        newDare: {
+          playerCode: this.$store.state.me
+        },
+        newRoom: {
+          dares: [],
+          roomCode: this.$store.state.room.roomCode
+        }
+      };
+    },
+    computed: {
+      room() {
+        return this.$store.state.room;
+      },
+      players() {
+        return this.$store.state.room.players;
+      }
+    },
+    methods: {
+      submitDare() {
+        let payload = this.newRoom;
+        payload.dares = this.room.dares;
+        payload.dares.push(this.newDare);
+        this.$store.dispatch("editDares", payload);
+      }
+    },
+    mounted() {
+      this.$store.dispatch("clearEligible", this.$store.state.room);
     }
-  },
-  methods: {
-    submitDare() {
-      let payload = this.newRoom;
-      payload.dares = this.room.dares;
-      payload.dares.push(this.newDare);
-      this.$store.dispatch("editDares", payload);
-    }
-  },
-  mounted() {
-    this.$store.dispatch("editEligible", this.$store.state.room);
-  }
-};
+  };
 </script>
 <style scoped>
-.info-border {
-  border: 3px;
-  border-style: solid;
-  border-color: #ff2a6d;
-}
+  .info-border {
+    border: 3px;
+    border-style: solid;
+    border-color: #ff2a6d;
+  }
 
-.blue-border {
-  border: 3px;
-  border-style: solid;
-  border-color: #05d9e8;
-}
+  .blue-border {
+    border: 3px;
+    border-style: solid;
+    border-color: #05d9e8;
+  }
 </style>
