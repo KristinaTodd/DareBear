@@ -159,6 +159,7 @@ export class RoomsController extends BaseController {
   async editPlayer(req, res, next) {
     try {
       let data = await roomService.editPlayer(req.params.id, req.params.playerId, req.body)
+      socketService.messageRoom(`room${data.roomCode}`, "updateRoom", data)
       res.send(data)
     } catch (error) {
       next(error)
