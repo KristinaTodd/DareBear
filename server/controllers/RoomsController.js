@@ -26,6 +26,7 @@ export class RoomsController extends BaseController {
       .put("/:id/endround", this.endRound)
       .put("/:id/endturn", this.endTurn)
       .put("/:id/modal", this.modal)
+      .put("/:id/clearEligible", this.clearEligible)
   }
   async getRoomByRoomCode(req, res, next) {
     try {
@@ -80,6 +81,16 @@ export class RoomsController extends BaseController {
   async editEligible(req, res, next) {
     try {
       let data = await roomService.editEligible(req.params.id, req.body)
+      socketService.messageRoom(`room${data.roomCode}`, "updateRoom", data)
+      res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async clearEligible(req, res, next) {
+    try {
+      let data = await roomService.clearEligible(req.params.id, req.body)
       socketService.messageRoom(`room${data.roomCode}`, "updateRoom", data)
       res.send(data);
     } catch (error) {
