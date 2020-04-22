@@ -203,6 +203,9 @@ export default new Vuex.Store({
       } catch (e) {
         console.error(e)
       }
+    },
+    done({ commit, dispatch, state }) {
+      state.room = {}
     }
   },
   modules: {

@@ -15,7 +15,7 @@
     </div>
     <div class="row text-center">
       <div class="col-1"></div>
-      <div class="col-10 button-border text-danger button-font">Leave Game</div>
+      <div class="col-10 button-border text-danger button-font" @click="finish">Leave Game</div>
       <div class="col-1"></div>
     </div>
   </div>
@@ -31,6 +31,12 @@ export default {
   computed: {
     players() {
       return this.$store.state.room.players;
+    }
+  },
+  methods: {
+    finish() {
+      this.$store.dispatch("done");
+      this.$router.push({ name: "Home" });
     }
   }
 };
