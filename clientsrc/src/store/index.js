@@ -47,7 +47,6 @@ export default new Vuex.Store({
       try {
         let res = await api.post("room/", payload);
         commit("setRoom", res.data);
-        console.log("playerCode", state.me)
       } catch (error) {
         console.error(error);
       }
@@ -55,6 +54,7 @@ export default new Vuex.Store({
     async startGame({ commit, dispatch }, payload) {
       try {
         let res = await api.put("room/" + payload.id + '/start', payload)
+        console.log("roomID: " + payload.id)
       } catch (error) {
         console.error(error)
       }
@@ -62,7 +62,6 @@ export default new Vuex.Store({
     async getPlayersbyRoomId({ commit, dispatch }, roomCode) {
       try {
         let res = await api.get("room/" + roomCode + "/players")
-        //dispatch("getRoom", roomCode)
       } catch (error) {
         console.error(error)
       }
@@ -72,16 +71,12 @@ export default new Vuex.Store({
         let res = await api.post("room/" + state.room.id + "/dares", payload.dares)
         if (state.room.dares.length == state.room.players.length) {
           await dispatch("editActive", payload);
-          console.log("checking editdares", state.room)
           await dispatch("editEligible", payload);
-          console.log("once more, with feeling", state.room)
         }
-        // dispatch("getRoom", payload.roomCode)
       } catch (error) {
         console.error(error)
       }
     },
-
 
     async editEligible({ commit, dispatch, state }, payload) {
       try {
@@ -93,8 +88,6 @@ export default new Vuex.Store({
     async editActive({ commit, dispatch, state }, payload) {
       try {
         let res = await api.put("room/" + state.room.id + "/active", payload)
-        //await dispatch("getRoom", payload.roomCode)
-        console.log("heres your active player", res)
       } catch (error) {
         console.error(error)
       }
@@ -112,7 +105,6 @@ export default new Vuex.Store({
     },
     async updateScored({ commit, dispatch }, payload) {
       let res = await api.put("room/" + payload.id + "/updatescored", payload)
-      //dispatch("getRoom", payload.roomCode)
     },
 
     dareView({ commit, dispatch }) {
@@ -146,16 +138,6 @@ export default new Vuex.Store({
         dispatch("mountedMethod", payload);
       }
     },
-    //NOTE action with promise
-    // load({dispatch, commit}, payload) {
-    //   return new Promise(async (res, rej) => {
-    //     try{
-    //    let result = await axios.get("/api/customers")
-    //        commit("setCustomers", result.data);
-    //         res();
-    //     }catch(err){rej()};
-    //   });
-    // },
     async endRound({ commit, dispatch }, payload) {
       try {
         await dispatch("editEligible", payload);
@@ -204,8 +186,15 @@ export default new Vuex.Store({
         console.error(e)
       }
     },
-    done({ commit, dispatch, state }) {
-      state.room = {}
+    async done({ commit, dispatch, state }, roomId) {
+      try {
+        if (state.room.players.length == 1) {
+          let res = await api.delete("room/" + state.room.id, roomId)
+        }
+        state.room = {}
+      } catch (e) {
+        console.error(e)
+      }
     }
   },
   modules: {

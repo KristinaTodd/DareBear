@@ -86,8 +86,6 @@
   export default {
     name: "Dare",
     mounted() {
-      //this.$store.dispatch("getRoom", this.$store.state.room.roomCode);
-      // console.log("heres our room on this page", this.$store.state.room);
     },
     computed: {
       room() {
@@ -118,7 +116,6 @@
       },
       async score(num) {
         this.player.playerScore = num;
-        console.log("Score is", this.player.playerScore);
         let payload = this.player;
         await this.$store.dispatch("scorePlayer", this.player);
         await this.$store.dispatch("updateScored", payload);

@@ -104,7 +104,7 @@ export class RoomsController extends BaseController {
       socketService.messageRoom(`room${data.roomCode}`, "updateRoom", data)
       // @ts-ignore
       socketService.messageRoom(`room${data.roomCode}`, "startRound", data)
-      // await this.getRoomByRoomCode(data.roomCode)
+
       res.send(data);
     } catch (error) {
       next(error);
@@ -114,7 +114,6 @@ export class RoomsController extends BaseController {
     try {
       req.body.creator = false
       let data = await roomService.createPlayer(req.params.id, req.body)
-      //socketService.messageRoom(`room${req.body.roomCode}`, 'updateRoom', data)
       if (data) {
         res.send(data)
       }

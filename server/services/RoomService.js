@@ -33,14 +33,11 @@ class RoomService {
     return data
   }
   async editRoom(id, update) {
-    // let creator = await dbContext.Rooms.players.findById(id)
-    //if (creator.creator) {
     let data = await dbContext.Rooms.findOneAndUpdate({ _id: id }, update, { new: true })
     if (!data) {
       throw new BadRequest("Invalid ID")
     }
     return data;
-    // }
   }
   async deleteRoom(id) {
     let data = await dbContext.Rooms.findOneAndRemove({ _id: id })
@@ -88,35 +85,8 @@ class RoomService {
     data.players[indexOfPlayer].playerScore += update.playerScore;
     data.markModified("players")
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
-    //return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
   }
-  // async editPlayerScore(id, playerId, update) {
-  //   let data = await dbContext.Rooms.findOne({ _id: id })
-  //   // @ts-ignore
-  //   let tempArr = data.players
-  //   //take the player that scored out of the original array
-  //   data.players.filter(p => { p.id != playerId })
-  //   //take every other player out of this array
-  //   tempArr.filter(p => { p.id == playerId })
-  //   //this is the player that scored
-  //   let found = tempArr[0]
-  //   //update that player's score
-  //   found.playerScore = update.playerScore
-  //   //now find out where to put it back
-  //   for (let i = 0; i < data.players.length; i++) {
-  //     //starting from 0, is this player's score less than the player who scored?
-  //     if (data.players[i] < found.playerScore) {
-  //       //if so, put the player who scored here, pushing every other player down. 
-  //       data.players.splice(i, 0, found)
-  //       //exit the loop by making i greater than its constraint
-  //       i = data.players.length
-  //       //in the event that this score is the lowest, put it at the end
-  //     } else if (i == data.players.length - 1) {
-  //       data.players.push(found)
-  //     }
-  //   }
-  //   return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
-  // }
+
   // @ts-ignore
   async deletePlayer(id, playerId, update) {
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $pull: { players: { _id: playerId } } }, { new: true })
@@ -141,8 +111,6 @@ class RoomService {
       //@ts-ignore
       data.eligiblePlayers = data.players;
     } else {
-      //data = await dbContext.Rooms.findOneAndUpdate({ _id: id }, { $pull: { eligiblePlayers: { _id: data.activePlayer[0].id } } }, { new: true })
-
       data.eligiblePlayers.pull(data.activePlayer[0]);
 
     }
@@ -154,7 +122,6 @@ class RoomService {
     let data = await dbContext.Rooms.findOne({ _id: id })
     // @ts-ignore
     data.activePlayer[0] = data.eligiblePlayers[Math.floor(Math.random() * (data.eligiblePlayers.length))]
-    //FIXME make these strings not arrays that ref the playerId/dareId
     // @ts-ignore
     data.activeDare[0] = data.dares[Math.floor(Math.random() * (data.dares.length))]
     // @ts-ignore
@@ -163,10 +130,8 @@ class RoomService {
     // @ts-ignore
 
     data.dares.splice(index, 1)
-    // await data.save()
     return await dbContext.Rooms.findOneAndUpdate({ _id: id }, data, { new: true })
 
-    //return await this.editEligible(id, update, data)
   }
   async updateScored(id, playerCode) {
     let data = await dbContext.Rooms.findOne({ _id: id })
