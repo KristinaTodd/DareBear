@@ -54,6 +54,7 @@ export default new Vuex.Store({
     async startGame({ commit, dispatch }, payload) {
       try {
         let res = await api.put("room/" + payload.id + '/start', payload)
+        console.log("roomID: " + payload.id)
       } catch (error) {
         console.error(error)
       }
@@ -76,7 +77,6 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-
 
     async editEligible({ commit, dispatch, state }, payload) {
       try {
@@ -186,8 +186,15 @@ export default new Vuex.Store({
         console.error(e)
       }
     },
-    done({ commit, dispatch, state }) {
-      state.room = {}
+    async done({ commit, dispatch, state }, roomId) {
+      try {
+        if (state.room.players.length == 1) {
+          let res = await api.delete("room/" + state.room.id, roomId)
+        }
+        state.room = {}
+      } catch (e) {
+        console.error(e)
+      }
     }
   },
   modules: {
